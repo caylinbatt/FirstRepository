@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SAX 4 Miler Leaderboard</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <header class="top">
+    <div class="brand">
+      <div class="badge">SAX 4 Miler 2026</div>
+      <h1 id="title">Employee Engagement Contest</h1>
+      <p id="subtitle" class="subtitle">Fundraising &amp; Participation Leaderboard</p>
+    </div>
+    <div class="header-meta">
+      <div class="live-pill"><span class="dot"></span> Live standings</div>
+      <div id="updated" class="updated">Loading…</div>
+      <button id="refreshBtn" class="ghost-btn" type="button">Refresh</button>
+    </div>
+  </header>
+
+  <section class="kpis" id="kpis">
+    <article class="kpi">
+      <div class="kpi-label">Total Raised</div>
+      <div class="kpi-value" id="kpiRaised">—</div>
+    </article>
+    <article class="kpi">
+      <div class="kpi-label">Total Points</div>
+      <div class="kpi-value" id="kpiPoints">—</div>
+    </article>
+    <article class="kpi">
+      <div class="kpi-label">Participants</div>
+      <div class="kpi-value" id="kpiPeople">—</div>
+    </article>
+    <article class="kpi">
+      <div class="kpi-label">Departments</div>
+      <div class="kpi-value" id="kpiDepts">—</div>
+    </article>
+  </section>
+
+  <section class="podium-wrap">
+    <div>
+      <div class="section-head">
+        <h2>Top Fundraisers</h2>
+        <span class="hint">by $ raised</span>
+      </div>
+      <div class="podium" id="podiumPeople"></div>
+    </div>
+    <div>
+      <div class="section-head">
+        <h2>Top Departments</h2>
+        <span class="hint">by $ raised</span>
+      </div>
+      <div class="podium" id="podiumDepts"></div>
+    </div>
+  </section>
+
+  <section class="boards">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="people-raised" type="button">People · Fundraising</button>
+      <button class="tab" data-tab="people-points" type="button">People · Points</button>
+      <button class="tab" data-tab="dept-raised" type="button">Departments · Fundraising</button>
+      <button class="tab" data-tab="dept-participants" type="button">Departments · Participants</button>
+    </div>
+
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search name, department, or team…" />
+      <select id="deptFilter">
+        <option value="">All departments</option>
+      </select>
+    </div>
+
+    <div class="table-card">
+      <table>
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div id="empty" class="empty hidden">No matching participants.</div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Non-participants are hidden. Department standings show participant count (not %).</span>
+    <span>Source: 4Miler Tracking.xlsx · Auto-refreshes every 60s</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
