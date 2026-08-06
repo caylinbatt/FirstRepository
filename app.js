@@ -249,7 +249,7 @@ function renderAll() {
   if (!state.data) return;
   const people = state.data.people || [];
   const depts = aggregateDepartments(people);
-  document.getElementById('title').textContent = state.data.title || 'SAX 4 Miler Leaderboard';
+  document.getElementById('title').textContent = state.data.title || 'SAX 4MILER Internal Competition';
   document.getElementById('subtitle').textContent = state.data.subtitle || 'Fundraising & Participation Leaderboard';
   const updated = state.data.updatedAt ? new Date(state.data.updatedAt) : null;
   document.getElementById('updated').textContent = updated
