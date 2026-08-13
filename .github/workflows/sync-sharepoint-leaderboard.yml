@@ -1,0 +1,75 @@
+name: Sync 4Miler leaderboard from SharePoint
+
+on:
+  schedule:
+    # Every 30 minutes
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-sharepoint-leaderboard
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    name: Pull SharePoint workbook and update data.json
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install openpyxl
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        # Falls back guidance if OIDC secrets are not configured yet.
+        continue-on-error: true
+
+      - name: Sync data.json from SharePoint
+        id: sync
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          if ! az account show >/dev/null 2>&1; then
+            if [[ -n "${AZURE_CLIENT_ID:-}" && -n "${AZURE_TENANT_ID:-}" && -n "${AZURE_CLIENT_SECRET:-}" ]]; then
+              az login --service-principal \
+                -u "$AZURE_CLIENT_ID" \
+                -p "$AZURE_CLIENT_SECRET" \
+                --tenant "$AZURE_TENANT_ID" >/dev/null
+            else
+              echo "::error::No Azure auth available. Configure either OIDC (AZURE_CLIENT_ID/TENANT_ID/SUBSCRIPTION_ID) or AZURE_CLIENT_SECRET service principal secrets, with Graph permission to read the Marketing site workbook."
+              exit 1
+            fi
+          fi
+          python scripts/sync_from_sharepoint.py --force
+
+      - name: Commit and push if changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          if git diff --cached --quiet; then
+            echo "No data.json changes"
+            exit 0
+          fi
+          git commit -m "Sync 4Miler leaderboard data from SharePoint tracking workbook"
+          git push origin HEAD:main

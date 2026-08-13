@@ -1,9 +1,16 @@
 {
-  "updatedAt": "2026-08-13T17:44:41.043687+00:00",
+  "updatedAt": "2026-08-13T20:50:24.942117+00:00",
   "title": "INTERNAL COMPETITION",
   "subtitle": "Current Standings \u00b7 Fundraising & Participation Leaderboard",
   "disclaimer": "Total Participants and Total Funds Raised only count SAX employees in this competition below partner level.",
   "partnersDisclaimer": "Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.",
+  "source": {
+    "file": "Updated 4Miler Tracking.xlsx",
+    "sharePointUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc={4462A57A-B085-4D46-B487-225D91621F37}&file=Updated%204Miler%20Tracking.xlsx",
+    "itemId": "01RJ5ABS32UVREJBNQIZG3JBZCLWIWEHZX",
+    "lastModifiedDateTime": "2026-08-13T20:44:48Z",
+    "webUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc=%7B4462A57A-B085-4D46-B487-225D91621F37%7D&file=Updated%204Miler%20Tracking.xlsx&action=default&mobileredirect=true"
+  },
   "people": [
     {
       "name": "Caylin Batt",
@@ -53,7 +60,7 @@
       "team": "SAX - Learning & Development",
       "raised": 60.0,
       "recruits": 3,
-      "posts": 0,
+      "posts": 1,
       "registered": 1,
       "volunteered": 0,
       "shares": 0,

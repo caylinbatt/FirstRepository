@@ -475,11 +475,38 @@ function renderAll() {
   renderVisual(people, depts);
 }
 
-async function loadData() {
-  const res = await fetch(`data.json?ts=${Date.now()}`, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`Failed to load data.json (${res.status})`);
-  state.data = await res.json();
-  renderAll();
+async function loadData({ silent = false } = {}) {
+  try {
+    const res = await fetch(`data.json?ts=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Failed to load data.json (${res.status})`);
+    const next = await res.json();
+    const prevUpdated = state.data && state.data.updatedAt;
+    const nextUpdated = next && next.updatedAt;
+    // Always apply first load; on polls, skip re-render when unchanged.
+    if (!state.data || prevUpdated !== nextUpdated || JSON.stringify(state.data.people) !== JSON.stringify(next.people)) {
+      state.data = next;
+      renderAll();
+    }
+  } catch (err) {
+    if (!silent) {
+      const el = document.getElementById('updated');
+      if (el) el.textContent = err.message || String(err);
+    }
+    // Keep showing last good data on background poll failures.
+    throw err;
+  }
+}
+
+function startDataPolling() {
+  const REFRESH_MS = 60_000;
+  setInterval(() => {
+    loadData({ silent: true }).catch(() => {});
+  }, REFRESH_MS);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      loadData({ silent: true }).catch(() => {});
+    }
+  });
 }
 
 function bind() {
@@ -507,6 +534,9 @@ function bind() {
 }
 
 bind();
-loadData().catch((err) => {
-  document.getElementById('updated').textContent = err.message;
-});
+loadData()
+  .then(() => startDataPolling())
+  .catch((err) => {
+    const el = document.getElementById('updated');
+    if (el) el.textContent = err.message || String(err);
+  });
