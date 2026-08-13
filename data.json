@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-13T14:14:25.504891+00:00",
+  "updatedAt": "2026-08-13T14:18:53.120424+00:00",
   "title": "SAX 4MILER Internal Competition",
   "subtitle": "Fundraising & Participation Leaderboard",
   "disclaimer": "Total Participants and Total Funds Raised only count SAX employees in this internal competition.",
@@ -31,34 +31,6 @@
       "comments": 0,
       "points": 365.0,
       "prize": "Gold"
-    },
-    {
-      "name": "Marnie Hards",
-      "department": "WEALTH MANAGEMENT",
-      "team": "SAX LIFE by Yoge",
-      "raised": 250.0,
-      "recruits": 3,
-      "posts": 0,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 0,
-      "comments": 0,
-      "points": 350.0,
-      "prize": "Silver"
-    },
-    {
-      "name": "Helena Lynch",
-      "department": "TAX",
-      "team": "",
-      "raised": 250.0,
-      "recruits": 0,
-      "posts": 0,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 1,
-      "comments": 0,
-      "points": 285.0,
-      "prize": "Bronze"
     },
     {
       "name": "Carrie Boynton",
@@ -114,20 +86,6 @@
       "shares": 1,
       "comments": 1,
       "points": 95.0,
-      "prize": "Bronze"
-    },
-    {
-      "name": "Charles Amodio",
-      "department": "ACCOUNTING",
-      "team": "",
-      "raised": 50.0,
-      "recruits": 0,
-      "posts": 0,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 1,
-      "comments": 0,
-      "points": 85.0,
       "prize": "Bronze"
     },
     {
@@ -274,20 +232,6 @@
       "name": "Nick Romanowski",
       "department": "HUMAN RESOURCES",
       "team": "SAX - Learning & Development",
-      "raised": 0.0,
-      "recruits": 0,
-      "posts": 0,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 0,
-      "comments": 0,
-      "points": 25.0,
-      "prize": ""
-    },
-    {
-      "name": "Tod Christianson",
-      "department": "ACCOUNTING",
-      "team": "SAX",
       "raised": 0.0,
       "recruits": 0,
       "posts": 0,
