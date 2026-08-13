@@ -504,17 +504,9 @@ function bind() {
     state.dept = e.target.value;
     renderAll();
   });
-  document.getElementById('refreshBtn').addEventListener('click', () => {
-    loadData().catch((err) => {
-      document.getElementById('updated').textContent = err.message;
-    });
-  });
 }
 
 bind();
 loadData().catch((err) => {
   document.getElementById('updated').textContent = err.message;
 });
-setInterval(() => {
-  loadData().catch(() => {});
-}, 60000);
