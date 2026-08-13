@@ -661,11 +661,11 @@ tbody tr:hover { background: rgba(255, 255, 255, 0.06); }
 
 .chart-bars {
   display: flex;
-  align-items: flex-end;
+  align-items: stretch; /* keep every column the same height */
   justify-content: space-around;
   gap: 12px;
-  min-height: 260px;
-  padding: 12px 6px 0;
+  min-height: 320px;
+  padding: 8px 6px 0;
 }
 .chart-bars.horizontal {
   flex-direction: column;
@@ -679,27 +679,39 @@ tbody tr:hover { background: rgba(255, 255, 255, 0.06); }
 
 .col-bar {
   flex: 1 1 0;
-  max-width: 120px;
-  display: flex;
-  flex-direction: column;
+  max-width: 128px;
+  display: grid;
+  /* value | plot area (shared baseline) | labels */
+  grid-template-rows: 28px 220px minmax(72px, auto);
   align-items: center;
-  gap: 8px;
+  justify-items: center;
+  gap: 0;
+  width: 100%;
+}
+.col-bar .bar-val {
+  align-self: end;
+  margin-bottom: 6px;
 }
 .col-bar .bar-track {
   width: 100%;
-  height: 200px;
+  height: 220px;
+  align-self: stretch;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-end; /* bars grow up from shared x-axis */
   justify-content: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.28);
+  padding: 0 0 0;
+  box-sizing: border-box;
 }
 .col-bar .bar-fill {
-  width: 72%;
+  width: 70%;
   min-height: 8px;
-  border-radius: 14px 14px 8px 8px;
+  border-radius: 14px 14px 4px 4px;
   background: linear-gradient(180deg, #ffd628 0%, #f57828 100%);
   box-shadow: 0 8px 18px rgba(0,0,0,.2);
   position: relative;
   transition: height 0.45s ease;
+  margin-bottom: 0;
 }
 .col-bar .bar-fill.gold { background: linear-gradient(180deg, #ffe566 0%, #ffd628 100%); }
 .col-bar .bar-fill.silver { background: linear-gradient(180deg, #f4f7fb 0%, #c9d4e5 100%); }
@@ -731,20 +743,28 @@ tbody tr:hover { background: rgba(255, 255, 255, 0.06); }
   font-size: 0.95rem;
   border: 2px solid rgba(255,255,255,.35);
 }
+.col-bar .bar-caption {
+  width: 100%;
+  padding-top: 10px;
+  text-align: center;
+  align-self: start;
+}
 .col-bar .bar-label {
   text-align: center;
   font-weight: 800;
   font-size: 12px;
   line-height: 1.25;
   color: #fff;
-  max-width: 110px;
+  max-width: 118px;
+  margin: 0 auto;
 }
 .col-bar .bar-meta {
   text-align: center;
   font-size: 11px;
   font-weight: 700;
   color: var(--muted-soft);
-  max-width: 110px;
+  max-width: 118px;
+  margin: 4px auto 0;
 }
 
 .h-bar {

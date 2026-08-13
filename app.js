@@ -294,8 +294,10 @@ function renderColumnChart(el, items, valueFn, valueFmt, labelFn, metaFn) {
             <div class="bar-rank">${rank}</div>
           </div>
         </div>
-        <div class="bar-label">${escapeHtml(labelFn(it))}</div>
-        <div class="bar-meta">${escapeHtml(metaFn(it))}</div>
+        <div class="bar-caption">
+          <div class="bar-label">${escapeHtml(labelFn(it))}</div>
+          <div class="bar-meta">${escapeHtml(metaFn(it))}</div>
+        </div>
       </div>`;
   }).join('');
 }
