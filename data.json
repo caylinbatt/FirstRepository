@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-13T14:18:53.120424+00:00",
+  "updatedAt": "2026-08-13T14:19:32.646211+00:00",
   "title": "SAX 4MILER Internal Competition",
   "subtitle": "Fundraising & Participation Leaderboard",
   "disclaimer": "Total Participants and Total Funds Raised only count SAX employees in this internal competition.",
@@ -242,5 +242,6 @@
       "points": 25.0,
       "prize": ""
     }
-  ]
+  ],
+  "partnersDisclaimer": "Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard."
 }

@@ -69,6 +69,21 @@ body {
   color: #9eb6e8;
   line-height: 1.35;
 }
+
+.disclaimer-stack {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 18px;
+}
+.disclaimer-stack .totals-disclaimer {
+  margin: 0;
+}
+.partners-disclaimer {
+  border-color: rgba(117, 108, 202, 0.35);
+  background: rgba(117, 108, 202, 0.12);
+  color: #d7ddff;
+}
+
 .totals-disclaimer {
   margin: 0 0 18px;
   padding: 10px 14px;

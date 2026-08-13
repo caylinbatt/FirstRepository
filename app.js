@@ -83,6 +83,11 @@ function renderKpis(people, depts) {
     disc.textContent = (state.data && state.data.disclaimer)
       || 'Total Participants and Total Funds Raised only count SAX employees competing in this internal competition.';
   }
+  const partnersDisc = document.getElementById('partnersDisclaimer');
+  if (partnersDisc) {
+    partnersDisc.textContent = (state.data && state.data.partnersDisclaimer)
+      || 'Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.';
+  }
 }
 
 function renderPodiumPeople(people) {
