@@ -60,7 +60,28 @@ body {
   mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
 }
 
-.top, .kpis, .podium-wrap, .boards, .foot { position: relative; z-index: 1; }
+.top, .kpis, .podium-wrap, .boards, 
+.kpi-note {
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #9eb6e8;
+  line-height: 1.35;
+}
+.totals-disclaimer {
+  margin: 0 0 18px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 225, 0, 0.28);
+  background: rgba(255, 225, 0, 0.08);
+  color: #ffe9a8;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.foot { position: relative; z-index: 1; }
 
 .top {
   display: flex; justify-content: space-between; gap: 24px; align-items: flex-end;

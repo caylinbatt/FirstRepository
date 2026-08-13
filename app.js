@@ -78,6 +78,11 @@ function renderKpis(people, depts) {
   document.getElementById('kpiPoints').textContent = num(points);
   document.getElementById('kpiPeople').textContent = num(people.length);
   document.getElementById('kpiDepts').textContent = num(depts.length);
+  const disc = document.getElementById('totalsDisclaimer');
+  if (disc) {
+    disc.textContent = (state.data && state.data.disclaimer)
+      || 'Total Participants and Total Funds Raised only count SAX employees competing in this internal competition.';
+  }
 }
 
 function renderPodiumPeople(people) {
