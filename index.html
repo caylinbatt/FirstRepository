@@ -27,16 +27,22 @@
       </div>
     </header>
 
+    <div class="view-switch" role="tablist" aria-label="Leaderboard views">
+      <button class="view-btn active" type="button" data-view="overview" id="viewOverviewBtn">Overview</button>
+      <button class="view-btn" type="button" data-view="visual" id="viewVisualBtn">Visual Dashboard</button>
+    </div>
+
+    <div id="view-overview" class="view-panel active">
     <section class="kpis" id="kpis">
       <article class="kpi">
         <div class="kpi-label">Total Raised</div>
         <div class="kpi-value accent" id="kpiRaised">—</div>
-        <div class="kpi-note">SAX employees below partner level only</div>
+        <div class="kpi-note">SAX employees in this competition below partner level only</div>
       </article>
       <article class="kpi">
         <div class="kpi-label">Participants</div>
         <div class="kpi-value highlight" id="kpiPeople">—</div>
-        <div class="kpi-note">SAX employees below partner level only</div>
+        <div class="kpi-note">SAX employees in this competition below partner level only</div>
       </article>
       <article class="kpi">
         <div class="kpi-label">Total Points</div>
@@ -53,7 +59,7 @@
         <span class="paint-label yellow">DISCLAIMERS</span>
       </div>
       <p class="totals-disclaimer" id="totalsDisclaimer">
-        Total Participants and Total Funds Raised only count SAX employees below partner level in this internal competition.
+        Total Participants and Total Funds Raised only count SAX employees in this competition below partner level.
       </p>
       <p class="totals-disclaimer partners-disclaimer" id="partnersDisclaimer">
         Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.
@@ -104,8 +110,99 @@
       </div>
     </section>
 
+    </div><!-- /view-overview -->
+
+    <div id="view-visual" class="view-panel" hidden>
+      <section class="kpis visual-kpis" id="visualKpis">
+        <article class="kpi">
+          <div class="kpi-label">Total Raised</div>
+          <div class="kpi-value accent" id="vKpiRaised">—</div>
+          <div class="kpi-note">SAX employees in this competition below partner level only</div>
+        </article>
+        <article class="kpi">
+          <div class="kpi-label">Participants</div>
+          <div class="kpi-value highlight" id="vKpiPeople">—</div>
+          <div class="kpi-note">SAX employees in this competition below partner level only</div>
+        </article>
+        <article class="kpi">
+          <div class="kpi-label">Total Points</div>
+          <div class="kpi-value" id="vKpiPoints">—</div>
+        </article>
+        <article class="kpi">
+          <div class="kpi-label">Departments</div>
+          <div class="kpi-value" id="vKpiDepts">—</div>
+        </article>
+      </section>
+
+      <div class="charts-grid">
+        <section class="chart-card">
+          <div class="section-head">
+            <span class="paint-label cyan">TOP POINTS</span>
+            <span class="hint">column comparison</span>
+          </div>
+          <div class="chart-bars" id="chartTopPoints"></div>
+        </section>
+
+        <section class="chart-card">
+          <div class="section-head">
+            <span class="paint-label magenta">TOP FUNDRAISERS</span>
+            <span class="hint">by $ raised</span>
+          </div>
+          <div class="chart-bars" id="chartTopRaised"></div>
+        </section>
+
+        <section class="chart-card">
+          <div class="section-head">
+            <span class="paint-label teal">DEPARTMENTS · $ RAISED</span>
+            <span class="hint">all departments</span>
+          </div>
+          <div class="chart-bars horizontal" id="chartDeptRaised"></div>
+        </section>
+
+        <section class="chart-card">
+          <div class="section-head">
+            <span class="paint-label yellow">DEPARTMENTS · POINTS</span>
+            <span class="hint">all departments</span>
+          </div>
+          <div class="chart-bars horizontal" id="chartDeptPoints"></div>
+        </section>
+
+        <section class="chart-card wide">
+          <div class="section-head">
+            <span class="paint-label cyan">ALL PARTICIPANTS · POINTS</span>
+            <span class="hint">full field</span>
+          </div>
+          <div class="chart-bars horizontal tall" id="chartAllPoints"></div>
+        </section>
+
+        <section class="chart-card wide">
+          <div class="section-head">
+            <span class="paint-label magenta">ALL PARTICIPANTS · $ RAISED</span>
+            <span class="hint">full field</span>
+          </div>
+          <div class="chart-bars horizontal tall" id="chartAllRaised"></div>
+        </section>
+
+        <section class="chart-card">
+          <div class="section-head">
+            <span class="paint-label teal">PRIZE TIER MIX</span>
+            <span class="hint">participant counts</span>
+          </div>
+          <div class="tier-grid" id="chartPrizeTiers"></div>
+        </section>
+
+        <section class="chart-card">
+          <div class="section-head">
+            <span class="paint-label yellow">ACTIVITY BREAKDOWN</span>
+            <span class="hint">totals across competition</span>
+          </div>
+          <div class="activity-grid" id="chartActivity"></div>
+        </section>
+      </div>
+    </div><!-- /view-visual -->
+
     <footer class="foot">
-      <span>Non-participants are hidden. Totals include only SAX employees below partner level.</span>
+      <span>Non-participants are hidden. Totals include only SAX employees in this competition below partner level.</span>
       <span>Source: Updated 4Miler Tracking.xlsx · Auto-refreshes every 60s</span>
     </footer>
   </div>

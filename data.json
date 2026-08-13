@@ -1,8 +1,9 @@
 {
-  "updatedAt": "2026-08-13T17:24:52.472656+00:00",
+  "updatedAt": "2026-08-13T17:44:41.043687+00:00",
   "title": "INTERNAL COMPETITION",
   "subtitle": "Current Standings \u00b7 Fundraising & Participation Leaderboard",
-  "disclaimer": "Total Participants and Total Funds Raised only count SAX employees below partner level in this internal competition.",
+  "disclaimer": "Total Participants and Total Funds Raised only count SAX employees in this competition below partner level.",
+  "partnersDisclaimer": "Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.",
   "people": [
     {
       "name": "Caylin Batt",
@@ -52,7 +53,7 @@
       "team": "SAX - Learning & Development",
       "raised": 60.0,
       "recruits": 3,
-      "posts": 1,
+      "posts": 0,
       "registered": 1,
       "volunteered": 0,
       "shares": 0,
@@ -63,7 +64,7 @@
     {
       "name": "Christine Brennan-Savino",
       "department": "HUMAN RESOURCES",
-      "team": "",
+      "team": "SAX",
       "raised": 100.0,
       "recruits": 0,
       "posts": 0,
@@ -105,7 +106,7 @@
     {
       "name": "Steven Sperling",
       "department": "TAX",
-      "team": "",
+      "team": "SAX",
       "raised": 0.0,
       "recruits": 2,
       "posts": 0,
@@ -133,7 +134,7 @@
     {
       "name": "Margaret Henn",
       "department": "MARKETING",
-      "team": "",
+      "team": "SAX",
       "raised": 0.0,
       "recruits": 0,
       "posts": 0,
@@ -161,7 +162,7 @@
     {
       "name": "Will Yang",
       "department": "TAX",
-      "team": "SAX LIFE by Yoge",
+      "team": "SAX",
       "raised": 25.0,
       "recruits": 0,
       "posts": 0,
@@ -185,6 +186,20 @@
       "comments": 0,
       "points": 50.0,
       "prize": "Participation"
+    },
+    {
+      "name": "Joseph DeBarr",
+      "department": "ACCOUNTING",
+      "team": "SAX",
+      "raised": 0.0,
+      "recruits": 0,
+      "posts": 0,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 0,
+      "comments": 0,
+      "points": 25.0,
+      "prize": ""
     },
     {
       "name": "Julia King",
@@ -217,7 +232,7 @@
     {
       "name": "Michael Curry",
       "department": "ACCOUNTING",
-      "team": "",
+      "team": "SAX",
       "raised": 0.0,
       "recruits": 0,
       "posts": 0,
@@ -242,6 +257,5 @@
       "points": 25.0,
       "prize": ""
     }
-  ],
-  "partnersDisclaimer": "Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard."
+  ]
 }

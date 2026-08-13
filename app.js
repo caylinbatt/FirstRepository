@@ -4,6 +4,7 @@ const state = {
   tab: 'people-points',
   search: '',
   dept: '',
+  view: 'overview',
 };
 
 const money = (n) => new Intl.NumberFormat('en-US', {
@@ -81,13 +82,21 @@ function renderKpis(people, depts) {
   const disc = document.getElementById('totalsDisclaimer');
   if (disc) {
     disc.textContent = (state.data && state.data.disclaimer)
-      || 'Total Participants and Total Funds Raised only count SAX employees below partner level in this internal competition.';
+      || 'Total Participants and Total Funds Raised only count SAX employees in this competition below partner level.';
   }
   const partnersDisc = document.getElementById('partnersDisclaimer');
   if (partnersDisc) {
     partnersDisc.textContent = (state.data && state.data.partnersDisclaimer)
       || 'Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.';
   }
+  const setTxt = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+  setTxt('vKpiRaised', money(raised));
+  setTxt('vKpiPoints', num(points));
+  setTxt('vKpiPeople', num(people.length));
+  setTxt('vKpiDepts', num(depts.length));
 }
 
 function renderPodiumPeople(people) {
@@ -256,6 +265,196 @@ function escapeAttr(str) {
   return escapeHtml(str).replaceAll('`', '');
 }
 
+
+function medalBarClass(rank) {
+  if (rank === 1) return 'gold';
+  if (rank === 2) return 'silver';
+  if (rank === 3) return 'bronze';
+  return 'c' + ((rank - 1) % 4);
+}
+
+function renderColumnChart(el, items, valueFn, valueFmt, labelFn, metaFn) {
+  if (!el) return;
+  if (!items.length) {
+    el.innerHTML = '<div class="muted">No data yet.</div>';
+    return;
+  }
+  const maxVal = Math.max(1, ...items.map((it) => toNum(valueFn(it))));
+  el.classList.remove('horizontal');
+  el.innerHTML = items.map((it, idx) => {
+    const val = toNum(valueFn(it));
+    const pct = Math.max(6, Math.round((val / maxVal) * 100));
+    const rank = it.rank || (idx + 1);
+    const cls = medalBarClass(rank);
+    return `
+      <div class="col-bar">
+        <div class="bar-val">${escapeHtml(valueFmt(val))}</div>
+        <div class="bar-track">
+          <div class="bar-fill ${cls}" style="height:${pct}%">
+            <div class="bar-rank">${rank}</div>
+          </div>
+        </div>
+        <div class="bar-label">${escapeHtml(labelFn(it))}</div>
+        <div class="bar-meta">${escapeHtml(metaFn(it))}</div>
+      </div>`;
+  }).join('');
+}
+
+function renderHorizontalChart(el, items, valueFn, valueFmt, labelFn, metaFn, colorMode = 'cycle') {
+  if (!el) return;
+  if (!items.length) {
+    el.innerHTML = '<div class="muted">No data yet.</div>';
+    return;
+  }
+  const maxVal = Math.max(1, ...items.map((it) => toNum(valueFn(it))));
+  el.classList.add('horizontal');
+  el.innerHTML = items.map((it, idx) => {
+    const val = toNum(valueFn(it));
+    const pct = Math.max(3, Math.round((val / maxVal) * 100));
+    let cls = 'c' + (idx % 4);
+    if (colorMode === 'rank' && it.rank) cls = medalBarClass(it.rank);
+    if (colorMode === 'prize') cls = prizeClass(it.prize || '') === 'none' ? 'c3' : prizeClass(it.prize || '');
+    return `
+      <div class="h-bar">
+        <div class="h-label">${escapeHtml(labelFn(it))}<span class="h-meta">${escapeHtml(metaFn(it))}</span></div>
+        <div class="h-track"><div class="h-fill ${cls}" style="width:${pct}%"></div></div>
+        <div class="h-val">${escapeHtml(valueFmt(val))}</div>
+      </div>`;
+  }).join('');
+}
+
+function renderPrizeTiers(el, people) {
+  if (!el) return;
+  const buckets = { Gold: 0, Silver: 0, Bronze: 0, Participation: 0, None: 0 };
+  for (const p of people) {
+    const prize = String(p.prize || '').trim();
+    if (!prize) buckets.None += 1;
+    else if (buckets[prize] !== undefined) buckets[prize] += 1;
+    else buckets.None += 1;
+  }
+  const order = ['Gold', 'Silver', 'Bronze', 'Participation', 'None'];
+  el.innerHTML = order.map((name) => {
+    const cls = name === 'None' ? 'none' : name.toLowerCase();
+    const label = name === 'None' ? 'No Tier Yet' : name;
+    return `
+      <div class="tier-card ${cls}">
+        <div class="tier-name">${label}</div>
+        <div class="tier-count">${num(buckets[name])}</div>
+      </div>`;
+  }).join('');
+}
+
+function renderActivity(el, people) {
+  if (!el) return;
+  const sum = (key) => people.reduce((s, p) => s + toNum(p[key]), 0);
+  const items = [
+    ['Registered', sum('registered')],
+    ['Teammates Recruited', sum('recruits')],
+    ['Social Posts', sum('posts')],
+    ['Shares / Reposts', sum('shares')],
+    ['Comments / Follows', sum('comments')],
+    ['Volunteered', sum('volunteered')],
+  ];
+  el.innerHTML = items.map(([label, val]) => `
+    <div class="activity-card">
+      <div class="a-label">${escapeHtml(label)}</div>
+      <div class="a-val">${num(val)}</div>
+    </div>`).join('');
+}
+
+function renderVisual(people, depts) {
+  const byPoints = denseRank(
+    [...people].sort((a, b) => toNum(b.points) - toNum(a.points) || toNum(b.raised) - toNum(a.raised) || a.name.localeCompare(b.name)),
+    (p) => toNum(p.points)
+  );
+  const byRaised = denseRank(
+    [...people].sort((a, b) => toNum(b.raised) - toNum(a.raised) || toNum(b.points) - toNum(a.points) || a.name.localeCompare(b.name)),
+    (p) => toNum(p.raised)
+  );
+  const deptByRaised = denseRank(
+    [...depts].sort((a, b) => b.raised - a.raised || b.participants - a.participants || a.department.localeCompare(b.department)),
+    (d) => d.raised
+  );
+  const deptByPoints = denseRank(
+    [...depts].sort((a, b) => b.points - a.points || b.raised - a.raised || a.department.localeCompare(b.department)),
+    (d) => d.points
+  );
+
+  renderColumnChart(
+    document.getElementById('chartTopPoints'),
+    byPoints.slice(0, 5),
+    (p) => p.points,
+    num,
+    (p) => p.name,
+    (p) => `${p.department || ''}${p.prize ? ' · ' + p.prize : ''}`
+  );
+  renderColumnChart(
+    document.getElementById('chartTopRaised'),
+    byRaised.slice(0, 5),
+    (p) => p.raised,
+    money,
+    (p) => p.name,
+    (p) => `${p.department || ''} · ${num(p.points)} pts`
+  );
+  renderHorizontalChart(
+    document.getElementById('chartDeptRaised'),
+    deptByRaised,
+    (d) => d.raised,
+    money,
+    (d) => d.department,
+    (d) => `${num(d.participants)} participants`,
+    'cycle'
+  );
+  renderHorizontalChart(
+    document.getElementById('chartDeptPoints'),
+    deptByPoints,
+    (d) => d.points,
+    num,
+    (d) => d.department,
+    (d) => `${money(d.raised)} raised`,
+    'cycle'
+  );
+  renderHorizontalChart(
+    document.getElementById('chartAllPoints'),
+    byPoints,
+    (p) => p.points,
+    num,
+    (p) => p.name,
+    (p) => `${p.department || ''}${p.team ? ' · ' + p.team : ''}`,
+    'rank'
+  );
+  renderHorizontalChart(
+    document.getElementById('chartAllRaised'),
+    byRaised,
+    (p) => p.raised,
+    money,
+    (p) => p.name,
+    (p) => `${num(p.points)} pts${p.prize ? ' · ' + p.prize : ''}`,
+    'prize'
+  );
+  renderPrizeTiers(document.getElementById('chartPrizeTiers'), people);
+  renderActivity(document.getElementById('chartActivity'), people);
+}
+
+function setView(view) {
+  state.view = view;
+  const overview = document.getElementById('view-overview');
+  const visual = document.getElementById('view-visual');
+  const btnO = document.getElementById('viewOverviewBtn');
+  const btnV = document.getElementById('viewVisualBtn');
+  const isVisual = view === 'visual';
+  if (overview) {
+    overview.hidden = isVisual;
+    overview.classList.toggle('active', !isVisual);
+  }
+  if (visual) {
+    visual.hidden = !isVisual;
+    visual.classList.toggle('active', isVisual);
+  }
+  if (btnO) btnO.classList.toggle('active', !isVisual);
+  if (btnV) btnV.classList.toggle('active', isVisual);
+}
+
 function renderAll() {
   if (!state.data) return;
   const people = state.data.people || [];
@@ -271,6 +470,7 @@ function renderAll() {
   renderPodiumPeople(people);
   renderPodiumDepts(depts);
   renderTable(people, depts);
+  renderVisual(people, depts);
 }
 
 async function loadData() {
@@ -281,6 +481,11 @@ async function loadData() {
 }
 
 function bind() {
+  document.querySelectorAll('.view-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      setView(btn.dataset.view || 'overview');
+    });
+  });
   document.querySelectorAll('.tab').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach((b) => b.classList.remove('active'));
