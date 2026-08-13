@@ -7,99 +7,109 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="top-accent" aria-hidden="true"></div>
   <div class="bg-glow" aria-hidden="true"></div>
-  <header class="top">
-    <div class="brand">
-      <div class="badge">SAX 4MILER 2026</div>
-      <h1 id="title">SAX 4MILER Internal Competition</h1>
-      <p id="subtitle" class="subtitle">Fundraising &amp; Participation Leaderboard</p>
-    </div>
-    <div class="header-meta">
-      <div class="live-pill"><span class="dot"></span> Live standings</div>
-      <div id="updated" class="updated">Loading…</div>
-      <button id="refreshBtn" class="ghost-btn" type="button">Refresh</button>
-    </div>
-  </header>
+  <div class="page">
+    <header class="top">
+      <div class="brand-card">
+        <div class="badge">SAX 4MILER 2026</div>
+        <h1 id="title">INTERNAL COMPETITION</h1>
+        <p id="subtitle" class="subtitle">Current Standings · Fundraising &amp; Participation Leaderboard</p>
+      </div>
+      <div class="header-meta">
+        <div class="live-pill"><span class="dot"></span> Live standings</div>
+        <div id="updated" class="updated">Loading…</div>
+        <button id="refreshBtn" class="ghost-btn" type="button">Refresh</button>
+      </div>
+    </header>
 
-  <section class="kpis" id="kpis">
-    <article class="kpi">
-      <div class="kpi-label">Total Raised</div>
-      <div class="kpi-value" id="kpiRaised">—</div>
-      <div class="kpi-note">SAX employees in this competition only</div>
-    </article>
-    <article class="kpi">
-      <div class="kpi-label">Total Points</div>
-      <div class="kpi-value" id="kpiPoints">—</div>
-    </article>
-    <article class="kpi">
-      <div class="kpi-label">Participants</div>
-      <div class="kpi-value" id="kpiPeople">—</div>
-      <div class="kpi-note">SAX employees in this competition only</div>
-    </article>
-    <article class="kpi">
-      <div class="kpi-label">Departments</div>
-      <div class="kpi-value" id="kpiDepts">—</div>
-    </article>
-  </section>
+    <section class="kpis" id="kpis">
+      <article class="kpi">
+        <div class="kpi-label">Total Raised</div>
+        <div class="kpi-value accent" id="kpiRaised">—</div>
+        <div class="kpi-note">SAX employees below partner level only</div>
+      </article>
+      <article class="kpi">
+        <div class="kpi-label">Participants</div>
+        <div class="kpi-value highlight" id="kpiPeople">—</div>
+        <div class="kpi-note">SAX employees below partner level only</div>
+      </article>
+      <article class="kpi">
+        <div class="kpi-label">Total Points</div>
+        <div class="kpi-value" id="kpiPoints">—</div>
+      </article>
+      <article class="kpi">
+        <div class="kpi-label">Departments</div>
+        <div class="kpi-value" id="kpiDepts">—</div>
+      </article>
+    </section>
 
-  <div class="disclaimer-stack">
-    <p class="totals-disclaimer" id="totalsDisclaimer">
-      Total Participants and Total Funds Raised only count SAX employees competing in this internal competition.
-    </p>
-    <p class="totals-disclaimer partners-disclaimer" id="partnersDisclaimer">
-      Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.
-    </p>
+    <div class="disclaimer-stack">
+      <div class="section-head" style="margin-bottom: 4px;">
+        <span class="paint-label yellow">DISCLAIMERS</span>
+      </div>
+      <p class="totals-disclaimer" id="totalsDisclaimer">
+        Total Participants and Total Funds Raised only count SAX employees below partner level in this internal competition.
+      </p>
+      <p class="totals-disclaimer partners-disclaimer" id="partnersDisclaimer">
+        Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.
+      </p>
+    </div>
+
+    <section class="podium-wrap">
+      <div>
+        <div class="section-head">
+          <span class="paint-label cyan">TOP POINTS</span>
+          <span class="hint">1st – 3rd place</span>
+        </div>
+        <div class="podium" id="podiumPeople"></div>
+      </div>
+      <div>
+        <div class="section-head">
+          <span class="paint-label magenta">TOP DEPARTMENTS</span>
+          <span class="hint">by $ raised</span>
+        </div>
+        <div class="podium" id="podiumDepts"></div>
+      </div>
+    </section>
+
+    <section class="boards">
+      <div class="section-head" style="margin-bottom: 14px;">
+        <span class="paint-label teal">FULL LEADERBOARD</span>
+      </div>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="people-points" type="button">People · Points</button>
+        <button class="tab" data-tab="people-raised" type="button">People · Fundraising</button>
+        <button class="tab" data-tab="dept-raised" type="button">Departments · Fundraising</button>
+        <button class="tab" data-tab="dept-participants" type="button">Departments · Participants</button>
+      </div>
+
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search name, department, or team…" />
+        <select id="deptFilter">
+          <option value="">All departments</option>
+        </select>
+      </div>
+
+      <div class="table-card">
+        <table>
+          <thead id="thead"></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div id="empty" class="empty hidden">No matching participants.</div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>Non-participants are hidden. Totals include only SAX employees below partner level.</span>
+      <span>Source: Updated 4Miler Tracking.xlsx · Auto-refreshes every 60s</span>
+    </footer>
   </div>
-
-  <section class="podium-wrap">
-    <div>
-      <div class="section-head">
-        <h2>Top Fundraisers</h2>
-        <span class="hint">by $ raised</span>
-      </div>
-      <div class="podium" id="podiumPeople"></div>
-    </div>
-    <div>
-      <div class="section-head">
-        <h2>Top Departments</h2>
-        <span class="hint">by $ raised</span>
-      </div>
-      <div class="podium" id="podiumDepts"></div>
-    </div>
-  </section>
-
-  <section class="boards">
-    <div class="tabs" role="tablist">
-      <button class="tab active" data-tab="people-raised" type="button">People · Fundraising</button>
-      <button class="tab" data-tab="people-points" type="button">People · Points</button>
-      <button class="tab" data-tab="dept-raised" type="button">Departments · Fundraising</button>
-      <button class="tab" data-tab="dept-participants" type="button">Departments · Participants</button>
-    </div>
-
-    <div class="toolbar">
-      <input id="search" type="search" placeholder="Search name, department, or team…" />
-      <select id="deptFilter">
-        <option value="">All departments</option>
-      </select>
-    </div>
-
-    <div class="table-card">
-      <table>
-        <thead id="thead"></thead>
-        <tbody id="tbody"></tbody>
-      </table>
-      <div id="empty" class="empty hidden">No matching participants.</div>
-    </div>
-  </section>
-
-  <footer class="foot">
-    <span>Non-participants are hidden. Department standings show participant count (not %). Totals include only SAX employees in this competition.</span>
-    <span>Source: Updated 4Miler Tracking.xlsx · Auto-refreshes every 60s</span>
-  </footer>
+  <div class="bottom-accent" aria-hidden="true"></div>
 
   <script src="app.js"></script>
 </body>

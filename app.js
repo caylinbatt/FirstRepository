@@ -1,7 +1,7 @@
 
 const state = {
   data: null,
-  tab: 'people-raised',
+  tab: 'people-points',
   search: '',
   dept: '',
 };
@@ -81,7 +81,7 @@ function renderKpis(people, depts) {
   const disc = document.getElementById('totalsDisclaimer');
   if (disc) {
     disc.textContent = (state.data && state.data.disclaimer)
-      || 'Total Participants and Total Funds Raised only count SAX employees competing in this internal competition.';
+      || 'Total Participants and Total Funds Raised only count SAX employees below partner level in this internal competition.';
   }
   const partnersDisc = document.getElementById('partnersDisclaimer');
   if (partnersDisc) {
@@ -91,9 +91,10 @@ function renderKpis(people, depts) {
 }
 
 function renderPodiumPeople(people) {
+  // Match announcement graphic: Top Points 1-3 with dense ranks (ties share place)
   const ranked = denseRank(
-    [...people].sort((a, b) => toNum(b.raised) - toNum(a.raised) || toNum(b.points) - toNum(a.points) || a.name.localeCompare(b.name)),
-    (p) => toNum(p.raised)
+    [...people].sort((a, b) => toNum(b.points) - toNum(a.points) || toNum(b.raised) - toNum(a.raised) || a.name.localeCompare(b.name)),
+    (p) => toNum(p.points)
   ).slice(0, 3);
 
   const el = document.getElementById('podiumPeople');
@@ -103,10 +104,10 @@ function renderPodiumPeople(people) {
   }
   el.innerHTML = ranked.map((p) => `
     <article class="pod-card ${medalClass(p.rank)}">
-      <div class="pod-rank">#${p.rank}</div>
+      <div class="pod-rank">${p.rank}</div>
       <div class="pod-name">${escapeHtml(p.name)}</div>
       <div class="pod-sub">${escapeHtml(p.department)}${p.team ? ' · ' + escapeHtml(p.team) : ''}</div>
-      <div class="pod-metric">${money(p.raised)}<small>${num(p.points)} pts${p.prize ? ' · ' + escapeHtml(p.prize) : ''}</small></div>
+      <div class="pod-metric">${num(p.points)} pts<small>${money(p.raised)} raised${p.prize ? ' · ' + escapeHtml(p.prize) : ''}</small></div>
     </article>
   `).join('');
 }
@@ -124,7 +125,7 @@ function renderPodiumDepts(depts) {
   }
   el.innerHTML = ranked.map((d) => `
     <article class="pod-card ${medalClass(d.rank)}">
-      <div class="pod-rank">#${d.rank}</div>
+      <div class="pod-rank">${d.rank}</div>
       <div class="pod-name">${escapeHtml(d.department)}</div>
       <div class="pod-sub">${num(d.participants)} participants</div>
       <div class="pod-metric">${money(d.raised)}<small>${num(d.points)} total pts</small></div>
@@ -259,8 +260,8 @@ function renderAll() {
   if (!state.data) return;
   const people = state.data.people || [];
   const depts = aggregateDepartments(people);
-  document.getElementById('title').textContent = state.data.title || 'SAX 4MILER Internal Competition';
-  document.getElementById('subtitle').textContent = state.data.subtitle || 'Fundraising & Participation Leaderboard';
+  document.getElementById('title').textContent = 'INTERNAL COMPETITION';
+  document.getElementById('subtitle').textContent = state.data.subtitle || 'Current Standings · Fundraising & Participation Leaderboard';
   const updated = state.data.updatedAt ? new Date(state.data.updatedAt) : null;
   document.getElementById('updated').textContent = updated
     ? `Updated ${updated.toLocaleString()}`
