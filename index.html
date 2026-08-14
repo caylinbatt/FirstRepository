@@ -18,8 +18,8 @@
   <div class="top-accent" aria-hidden="true"></div>
   <div class="bg-glow" aria-hidden="true"></div>
   <div class="page">
-    <header class="top">
-      <div class="brand-card">
+    <header class="top compact-top">
+      <div class="brand-card compact-brand">
         <div class="badge">SAX 4MILER 2026</div>
         <h1 id="title">INTERNAL COMPETITION</h1>
         <p id="subtitle" class="subtitle">Current Standings · Fundraising &amp; Participation Leaderboard</p>
@@ -116,91 +116,119 @@
     </div><!-- /view-overview -->
 
     <div id="view-visual" class="view-panel" hidden>
-      <section class="kpis visual-kpis" id="visualKpis">
-        <article class="kpi">
-          <div class="kpi-label">Total Raised</div>
-          <div class="kpi-value accent" id="vKpiRaised">—</div>
-          <div class="kpi-note">SAX employees in this competition below partner level only</div>
-        </article>
-        <article class="kpi">
-          <div class="kpi-label">Participants</div>
-          <div class="kpi-value highlight" id="vKpiPeople">—</div>
-          <div class="kpi-note">SAX employees in this competition below partner level only</div>
-        </article>
-        <article class="kpi">
-          <div class="kpi-label">Total Points</div>
-          <div class="kpi-value" id="vKpiPoints">—</div>
-        </article>
-        <article class="kpi">
-          <div class="kpi-label">Departments</div>
-          <div class="kpi-value" id="vKpiDepts">—</div>
-        </article>
-      </section>
-
-      <div class="charts-grid">
-        <section class="chart-card">
-          <div class="section-head">
-            <span class="paint-label cyan">TOP POINTS</span>
-            <span class="hint">column comparison</span>
+      <div class="snapshot">
+        <header class="snapshot-hero">
+          <div class="snapshot-hero-copy">
+            <div class="badge">SAX 4MILER 2026</div>
+            <h2 class="snapshot-title">CURRENT STANDINGS</h2>
+            <p class="snapshot-asof" id="visualAsOf">Live standings</p>
           </div>
-          <div class="chart-bars" id="chartTopPoints"></div>
-        </section>
-
-        <section class="chart-card">
-          <div class="section-head">
-            <span class="paint-label magenta">TOP FUNDRAISERS</span>
-            <span class="hint">by $ raised</span>
+          <div class="snapshot-kpis" id="visualKpis">
+            <article class="skpi">
+              <div class="skpi-label">Total Raised</div>
+              <div class="skpi-value accent" id="vKpiRaised">—</div>
+              <div class="skpi-note">Below partner level only</div>
+            </article>
+            <article class="skpi">
+              <div class="skpi-label">Participants</div>
+              <div class="skpi-value highlight" id="vKpiPeople">—</div>
+              <div class="skpi-note">Below partner level only</div>
+            </article>
+            <article class="skpi">
+              <div class="skpi-label">Total Points</div>
+              <div class="skpi-value" id="vKpiPoints">—</div>
+            </article>
+            <article class="skpi">
+              <div class="skpi-label">Departments</div>
+              <div class="skpi-value" id="vKpiDepts">—</div>
+            </article>
           </div>
-          <div class="chart-bars" id="chartTopRaised"></div>
-        </section>
+        </header>
 
-        <section class="chart-card">
-          <div class="section-head">
-            <span class="paint-label teal">DEPARTMENTS · $ RAISED</span>
-            <span class="hint">all departments</span>
-          </div>
-          <div class="chart-bars horizontal" id="chartDeptRaised"></div>
-        </section>
+        <div class="snapshot-row">
+          <section class="chart-card compact podium-card">
+            <div class="section-head tight">
+              <span class="paint-label cyan sm">TOP POINTS</span>
+              <span class="hint">1st – 3rd place</span>
+            </div>
+            <div class="chart-bars compact" id="chartTopPoints"></div>
+          </section>
 
-        <section class="chart-card">
-          <div class="section-head">
-            <span class="paint-label yellow">DEPARTMENTS · POINTS</span>
-            <span class="hint">all departments</span>
-          </div>
-          <div class="chart-bars horizontal" id="chartDeptPoints"></div>
-        </section>
+          <section class="chart-card compact podium-card">
+            <div class="section-head tight">
+              <span class="paint-label magenta sm">TOP DEPARTMENTS</span>
+              <span class="hint">by $ raised · 1st – 3rd</span>
+            </div>
+            <div class="chart-bars compact" id="chartTopDepts"></div>
+          </section>
+        </div>
 
-        <section class="chart-card wide">
-          <div class="section-head">
-            <span class="paint-label cyan">ALL PARTICIPANTS · POINTS</span>
-            <span class="hint">full field</span>
-          </div>
-          <div class="chart-bars horizontal tall" id="chartAllPoints"></div>
-        </section>
+        <div class="snapshot-row secondary">
+          <section class="chart-card compact">
+            <div class="section-head tight">
+              <span class="paint-label teal sm">TOP FUNDRAISERS</span>
+              <span class="hint">by $ raised</span>
+            </div>
+            <div class="chart-bars compact" id="chartTopRaised"></div>
+          </section>
 
-        <section class="chart-card wide">
-          <div class="section-head">
-            <span class="paint-label magenta">ALL PARTICIPANTS · $ RAISED</span>
-            <span class="hint">full field</span>
-          </div>
-          <div class="chart-bars horizontal tall" id="chartAllRaised"></div>
-        </section>
+          <section class="chart-card compact">
+            <div class="section-head tight">
+              <span class="paint-label yellow sm">DEPTS · POINTS</span>
+              <span class="hint">all departments</span>
+            </div>
+            <div class="chart-bars horizontal compact-h" id="chartDeptPoints"></div>
+          </section>
+        </div>
 
-        <section class="chart-card">
-          <div class="section-head">
-            <span class="paint-label teal">PRIZE TIER MIX</span>
-            <span class="hint">participant counts</span>
-          </div>
-          <div class="tier-grid" id="chartPrizeTiers"></div>
-        </section>
+        <div class="snapshot-row secondary">
+          <section class="chart-card compact">
+            <div class="section-head tight">
+              <span class="paint-label teal sm">DEPTS · $ RAISED</span>
+              <span class="hint">all departments</span>
+            </div>
+            <div class="chart-bars horizontal compact-h" id="chartDeptRaised"></div>
+          </section>
 
-        <section class="chart-card">
-          <div class="section-head">
-            <span class="paint-label yellow">ACTIVITY BREAKDOWN</span>
-            <span class="hint">totals across competition</span>
-          </div>
-          <div class="activity-grid" id="chartActivity"></div>
-        </section>
+          <section class="chart-card compact mix-card">
+            <div class="section-head tight">
+              <span class="paint-label cyan sm">PRIZE + ACTIVITY</span>
+              <span class="hint">counts</span>
+            </div>
+            <div class="mix-grid">
+              <div class="tier-grid compact" id="chartPrizeTiers"></div>
+              <div class="activity-grid compact" id="chartActivity"></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="snapshot-row full">
+          <section class="chart-card compact wide">
+            <div class="section-head tight">
+              <span class="paint-label cyan sm">ALL PARTICIPANTS · POINTS</span>
+              <span class="hint">full field</span>
+            </div>
+            <div class="chart-bars horizontal compact-h dense" id="chartAllPoints"></div>
+          </section>
+        </div>
+
+        <div class="snapshot-row full">
+          <section class="chart-card compact wide">
+            <div class="section-head tight">
+              <span class="paint-label magenta sm">ALL PARTICIPANTS · $ RAISED</span>
+              <span class="hint">full field</span>
+            </div>
+            <div class="chart-bars horizontal compact-h dense" id="chartAllRaised"></div>
+          </section>
+        </div>
+
+        <div class="snapshot-disclaimer">
+          <span class="paint-label yellow sm">DISCLAIMERS</span>
+          <ul>
+            <li>Total Participants and Total Funds Raised only count SAX employees below partner level in this internal competition.</li>
+            <li>Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.</li>
+          </ul>
+        </div>
       </div>
     </div><!-- /view-visual -->
 

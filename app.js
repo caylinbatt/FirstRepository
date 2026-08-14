@@ -384,15 +384,23 @@ function renderVisual(people, depts) {
 
   renderColumnChart(
     document.getElementById('chartTopPoints'),
-    byPoints.slice(0, 5),
+    byPoints.slice(0, 3),
     (p) => p.points,
     num,
     (p) => p.name,
     (p) => `${p.department || ''}${p.prize ? ' · ' + p.prize : ''}`
   );
   renderColumnChart(
+    document.getElementById('chartTopDepts'),
+    deptByRaised.slice(0, 3),
+    (d) => d.raised,
+    money,
+    (d) => d.department,
+    (d) => `${num(d.participants)} participants`
+  );
+  renderColumnChart(
     document.getElementById('chartTopRaised'),
-    byRaised.slice(0, 5),
+    byRaised.slice(0, 3),
     (p) => p.raised,
     money,
     (p) => p.name,
@@ -467,6 +475,12 @@ function renderAll() {
   document.getElementById('updated').textContent = updated
     ? `Updated ${updated.toLocaleString()}`
     : 'Updated just now';
+  const visualAsOf = document.getElementById('visualAsOf');
+  if (visualAsOf) {
+    visualAsOf.textContent = updated
+      ? `Standings as of ${updated.toLocaleString()}`
+      : 'Live standings';
+  }
   fillDeptFilter(people);
   renderKpis(people, depts);
   renderPodiumPeople(people);
