@@ -35,14 +35,8 @@ Logs: `logs/sharepoint-sync.log`
 ### Browser auto-update
 `app.js` silently re-fetches `data.json` every 60 seconds (no full page reload) and when the tab becomes visible again.
 
-### Scheduled sync
-- **macOS LaunchAgent** (local, uses your `az` login): every 30 minutes  
-  `~/Library/LaunchAgents/com.sax.4miler.sharepoint-sync.plist`
-- **GitHub Actions** (optional cloud): `.github/workflows/sync-sharepoint-leaderboard.yml`  
-  Needs Graph-capable Azure app secrets:
-  - `AZURE_CLIENT_ID`
-  - `AZURE_TENANT_ID`
-  - `AZURE_SUBSCRIPTION_ID` (OIDC) and/or `AZURE_CLIENT_SECRET`
+### Manual sync only
+Scheduled auto-sync/deploy is disabled. Run the sync script only when you want standings updated.
 
 ## Deploy
 Push to `main`. Workflow uses `AZURE_STATIC_WEB_APPS_API_TOKEN_ICY_MUSHROOM_05D784C0F`.
