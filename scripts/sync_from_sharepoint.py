@@ -308,6 +308,7 @@ def extract(path: Path) -> dict:
         "updatedAt": datetime.now(timezone.utc).isoformat(),
         "title": TITLE,
         "subtitle": SUBTITLE,
+        "totalFundraiserRaised": 61455.0,
         "disclaimer": DISCLAIMER,
         "partnersDisclaimer": PARTNERS_DISCLAIMER,
         "source": {
@@ -323,6 +324,7 @@ def people_signature(data: dict) -> str:
     clone = {
         "title": data.get("title"),
         "subtitle": data.get("subtitle"),
+        "totalFundraiserRaised": data.get("totalFundraiserRaised"),
         "disclaimer": data.get("disclaimer"),
         "partnersDisclaimer": data.get("partnersDisclaimer"),
         "people": data.get("people") or [],
@@ -385,6 +387,12 @@ def write_output(data: dict, out: Path, force: bool, meta: dict) -> int:
             previous = json.loads(out.read_text())
         except Exception:
             previous = None
+
+    # Keep the manually maintained whole-fundraiser total across standings syncs.
+    if previous and previous.get("totalFundraiserRaised") is not None:
+        data["totalFundraiserRaised"] = previous.get("totalFundraiserRaised")
+    else:
+        data.setdefault("totalFundraiserRaised", 61455.0)
 
     if (
         not force

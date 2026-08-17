@@ -7,8 +7,11 @@ const state = {
   view: 'overview',
 };
 
-const money = (n) => new Intl.NumberFormat('en-US', {
-  style: 'currency', currency: 'USD', maximumFractionDigits: 0
+const money = (n, fractionDigits = 0) => new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: fractionDigits,
+  maximumFractionDigits: fractionDigits,
 }).format(Number(n) || 0);
 
 const num = (n) => new Intl.NumberFormat('en-US').format(Number(n) || 0);
@@ -72,11 +75,29 @@ function filterPeople(people) {
   });
 }
 
+function formatLiveAsOf(date) {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
+    return 'Live standings';
+  }
+  const stamp = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit',
+  }).format(date);
+  return `Live standings as of ${stamp}`;
+}
+
 function renderKpis(people, depts) {
   const raised = people.reduce((s, p) => s + toNum(p.raised), 0);
-  const points = people.reduce((s, p) => s + toNum(p.points), 0);
+  const fundraiserTotal = state.data && state.data.totalFundraiserRaised != null
+    ? toNum(state.data.totalFundraiserRaised)
+    : 61455;
   document.getElementById('kpiRaised').textContent = money(raised);
-  document.getElementById('kpiPoints').textContent = num(points);
+  document.getElementById('kpiFundraiserTotal').textContent = money(fundraiserTotal, 2);
   document.getElementById('kpiPeople').textContent = num(people.length);
   document.getElementById('kpiDepts').textContent = num(depts.length);
   const disc = document.getElementById('totalsDisclaimer');
@@ -94,7 +115,7 @@ function renderKpis(people, depts) {
     if (el) el.textContent = val;
   };
   setTxt('vKpiRaised', money(raised));
-  setTxt('vKpiPoints', num(points));
+  setTxt('vKpiFundraiserTotal', money(fundraiserTotal, 2));
   setTxt('vKpiPeople', num(people.length));
   setTxt('vKpiDepts', num(depts.length));
 }
@@ -471,15 +492,16 @@ function renderAll() {
   const depts = aggregateDepartments(people);
   document.getElementById('title').textContent = 'INTERNAL COMPETITION';
   document.getElementById('subtitle').textContent = state.data.subtitle || 'Current Standings · Fundraising & Participation Leaderboard';
-  const updated = state.data.updatedAt ? new Date(state.data.updatedAt) : null;
-  document.getElementById('updated').textContent = updated
-    ? `Updated ${updated.toLocaleString()}`
-    : 'Updated just now';
+  const liveStamp = formatLiveAsOf(new Date());
+  const updatedEl = document.getElementById('updated');
+  if (updatedEl) {
+    const dot = document.createElement('span');
+    dot.className = 'dot';
+    updatedEl.replaceChildren(dot, document.createTextNode(` ${liveStamp}`));
+  }
   const visualAsOf = document.getElementById('visualAsOf');
   if (visualAsOf) {
-    visualAsOf.textContent = updated
-      ? `Standings as of ${updated.toLocaleString()}`
-      : 'Live standings';
+    visualAsOf.textContent = liveStamp;
   }
   fillDeptFilter(people);
   renderKpis(people, depts);

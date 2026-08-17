@@ -3,7 +3,7 @@
 # and push to main when standings change (triggers Azure SWA deploy).
 set -uo pipefail
 
-ROOT="/private/tmp/4miler-swa"
+ROOT="/Users/caylinbatt/Projects/4miler-swa"
 # Prefer the real clone path if this script lives inside the repo.
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 if [[ -d "$SCRIPT_DIR/.." && -f "$SCRIPT_DIR/../data.json" ]]; then
