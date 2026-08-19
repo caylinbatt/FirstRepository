@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-17T14:14:17.000000+00:00",
+  "updatedAt": "2026-08-19T13:46:09.664511+00:00",
   "title": "INTERNAL COMPETITION",
   "subtitle": "Current Standings \u00b7 Fundraising & Participation Leaderboard",
   "totalFundraiserRaised": 61455.0,
@@ -9,10 +9,24 @@
     "file": "Updated 4Miler Tracking.xlsx",
     "sharePointUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc={4462A57A-B085-4D46-B487-225D91621F37}&file=Updated%204Miler%20Tracking.xlsx",
     "itemId": "01RJ5ABS32UVREJBNQIZG3JBZCLWIWEHZX",
-    "lastModifiedDateTime": "2026-08-13T20:44:48Z",
+    "lastModifiedDateTime": "2026-08-19T13:43:26Z",
     "webUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc=%7B4462A57A-B085-4D46-B487-225D91621F37%7D&file=Updated%204Miler%20Tracking.xlsx&action=default&mobileredirect=true"
   },
   "people": [
+    {
+      "name": "Yogeandra Bhowandin",
+      "department": "ACCOUNTING",
+      "team": "SAX LIFE by Yoge",
+      "raised": 325.0,
+      "recruits": 0,
+      "posts": 4,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 1,
+      "comments": 0,
+      "points": 420.0,
+      "prize": "Gold"
+    },
     {
       "name": "Caylin Batt",
       "department": "MARKETING",
@@ -25,21 +39,7 @@
       "shares": 1,
       "comments": 2,
       "points": 365.0,
-      "prize": "Gold"
-    },
-    {
-      "name": "Yogeandra Bhowandin",
-      "department": "ACCOUNTING",
-      "team": "SAX LIFE by Yoge",
-      "raised": 275.0,
-      "recruits": 0,
-      "posts": 3,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 2,
-      "comments": 0,
-      "points": 365.0,
-      "prize": "Gold"
+      "prize": "Silver"
     },
     {
       "name": "Carrie Boynton",
@@ -151,6 +151,20 @@
       "shares": 1,
       "comments": 2,
       "points": 55.0,
+      "prize": "Participation"
+    },
+    {
+      "name": "Annalysse Wilson",
+      "department": "ACCOUNTING",
+      "team": "SAX",
+      "raised": 25.0,
+      "recruits": 0,
+      "posts": 0,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 0,
+      "comments": 0,
+      "points": 50.0,
       "prize": "Participation"
     },
     {
