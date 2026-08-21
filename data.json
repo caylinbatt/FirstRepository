@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-19T13:46:09.664511+00:00",
+  "updatedAt": "2026-08-21T14:25:37.416445+00:00",
   "title": "INTERNAL COMPETITION",
   "subtitle": "Current Standings \u00b7 Fundraising & Participation Leaderboard",
   "totalFundraiserRaised": 61555.0,
@@ -9,7 +9,7 @@
     "file": "Updated 4Miler Tracking.xlsx",
     "sharePointUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc={4462A57A-B085-4D46-B487-225D91621F37}&file=Updated%204Miler%20Tracking.xlsx",
     "itemId": "01RJ5ABS32UVREJBNQIZG3JBZCLWIWEHZX",
-    "lastModifiedDateTime": "2026-08-19T13:43:26Z",
+    "lastModifiedDateTime": "2026-08-21T14:20:43Z",
     "webUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc=%7B4462A57A-B085-4D46-B487-225D91621F37%7D&file=Updated%204Miler%20Tracking.xlsx&action=default&mobileredirect=true"
   },
   "people": [
@@ -22,10 +22,24 @@
       "posts": 4,
       "registered": 1,
       "volunteered": 0,
-      "shares": 1,
+      "shares": 2,
       "comments": 0,
-      "points": 420.0,
+      "points": 430.0,
       "prize": "Gold"
+    },
+    {
+      "name": "Nicole Meraviglia",
+      "department": "HUMAN RESOURCES",
+      "team": "SAX - Learning & Development",
+      "raised": 255.0,
+      "recruits": 4,
+      "posts": 1,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 0,
+      "comments": 0,
+      "points": 395.0,
+      "prize": "Silver"
     },
     {
       "name": "Caylin Batt",
@@ -53,20 +67,6 @@
       "shares": 0,
       "comments": 0,
       "points": 240.0,
-      "prize": "Bronze"
-    },
-    {
-      "name": "Nicole Meraviglia",
-      "department": "HUMAN RESOURCES",
-      "team": "SAX - Learning & Development",
-      "raised": 60.0,
-      "recruits": 3,
-      "posts": 1,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 0,
-      "comments": 0,
-      "points": 175.0,
       "prize": "Bronze"
     },
     {
@@ -208,6 +208,20 @@
       "comments": 0,
       "points": 50.0,
       "prize": "Participation"
+    },
+    {
+      "name": "Daniel Gilman",
+      "department": "ACCOUNTING",
+      "team": "SAX",
+      "raised": 0.0,
+      "recruits": 0,
+      "posts": 0,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 0,
+      "comments": 0,
+      "points": 25.0,
+      "prize": ""
     },
     {
       "name": "Joseph DeBarr",
