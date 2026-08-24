@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-08-21T16:00:28.260646+00:00",
+  "updatedAt": "2026-08-24T14:06:59.465729+00:00",
   "title": "INTERNAL COMPETITION",
   "subtitle": "Current Standings \u00b7 Fundraising & Participation Leaderboard",
-  "totalFundraiserRaised": 57165.0,
+  "totalFundraiserRaised": 57365.0,
   "disclaimer": "Total Participants and Total Funds Raised only count SAX employees in this competition below partner level.",
   "partnersDisclaimer": "Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.",
   "source": {
     "file": "Updated 4Miler Tracking.xlsx",
     "sharePointUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc={4462A57A-B085-4D46-B487-225D91621F37}&file=Updated%204Miler%20Tracking.xlsx",
     "itemId": "01RJ5ABS32UVREJBNQIZG3JBZCLWIWEHZX",
-    "lastModifiedDateTime": "2026-08-21T14:20:43Z",
+    "lastModifiedDateTime": "2026-08-24T14:05:04Z",
     "webUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc=%7B4462A57A-B085-4D46-B487-225D91621F37%7D&file=Updated%204Miler%20Tracking.xlsx&action=default&mobileredirect=true"
   },
   "people": [
@@ -56,6 +56,20 @@
       "prize": "Silver"
     },
     {
+      "name": "Margaret Henn",
+      "department": "MARKETING",
+      "team": "SAX",
+      "raised": 100.0,
+      "recruits": 0,
+      "posts": 0,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 1,
+      "comments": 2,
+      "points": 255.0,
+      "prize": "Bronze"
+    },
+    {
       "name": "Carrie Boynton",
       "department": "TAX",
       "team": "SAX - Construction Squad",
@@ -67,6 +81,20 @@
       "shares": 0,
       "comments": 0,
       "points": 240.0,
+      "prize": "Bronze"
+    },
+    {
+      "name": "Talia Spendiff",
+      "department": "MARKETING",
+      "team": "SAX",
+      "raised": 125.0,
+      "recruits": 0,
+      "posts": 0,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 1,
+      "comments": 2,
+      "points": 180.0,
       "prize": "Bronze"
     },
     {
@@ -95,21 +123,7 @@
       "shares": 1,
       "comments": 1,
       "points": 95.0,
-      "prize": "Bronze"
-    },
-    {
-      "name": "Talia Spendiff",
-      "department": "MARKETING",
-      "team": "SAX",
-      "raised": 25.0,
-      "recruits": 0,
-      "posts": 0,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 1,
-      "comments": 2,
-      "points": 80.0,
-      "prize": "Bronze"
+      "prize": "Participation"
     },
     {
       "name": "Steven Sperling",
@@ -137,20 +151,6 @@
       "shares": 0,
       "comments": 0,
       "points": 75.0,
-      "prize": "Participation"
-    },
-    {
-      "name": "Margaret Henn",
-      "department": "MARKETING",
-      "team": "SAX",
-      "raised": 0.0,
-      "recruits": 0,
-      "posts": 0,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 1,
-      "comments": 2,
-      "points": 55.0,
       "prize": "Participation"
     },
     {
