@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-24T14:06:59.465729+00:00",
+  "updatedAt": "2026-08-24T20:20:37.995947+00:00",
   "title": "INTERNAL COMPETITION",
   "subtitle": "Current Standings \u00b7 Fundraising & Participation Leaderboard",
   "totalFundraiserRaised": 57365.0,
@@ -9,10 +9,24 @@
     "file": "Updated 4Miler Tracking.xlsx",
     "sharePointUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc={4462A57A-B085-4D46-B487-225D91621F37}&file=Updated%204Miler%20Tracking.xlsx",
     "itemId": "01RJ5ABS32UVREJBNQIZG3JBZCLWIWEHZX",
-    "lastModifiedDateTime": "2026-08-24T14:05:04Z",
+    "lastModifiedDateTime": "2026-08-24T20:19:25Z",
     "webUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc=%7B4462A57A-B085-4D46-B487-225D91621F37%7D&file=Updated%204Miler%20Tracking.xlsx&action=default&mobileredirect=true"
   },
   "people": [
+    {
+      "name": "Margaret Henn",
+      "department": "MARKETING",
+      "team": "SAX",
+      "raised": 200.0,
+      "recruits": 0,
+      "posts": 0,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 1,
+      "comments": 2,
+      "points": 455.0,
+      "prize": "Gold"
+    },
     {
       "name": "Yogeandra Bhowandin",
       "department": "ACCOUNTING",
@@ -25,7 +39,7 @@
       "shares": 2,
       "comments": 0,
       "points": 430.0,
-      "prize": "Gold"
+      "prize": "Silver"
     },
     {
       "name": "Nicole Meraviglia",
@@ -53,20 +67,6 @@
       "shares": 1,
       "comments": 2,
       "points": 365.0,
-      "prize": "Silver"
-    },
-    {
-      "name": "Margaret Henn",
-      "department": "MARKETING",
-      "team": "SAX",
-      "raised": 100.0,
-      "recruits": 0,
-      "posts": 0,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 1,
-      "comments": 2,
-      "points": 255.0,
       "prize": "Bronze"
     },
     {
@@ -98,6 +98,20 @@
       "prize": "Bronze"
     },
     {
+      "name": "Annalysse Wilson",
+      "department": "ACCOUNTING",
+      "team": "SAX",
+      "raised": 25.0,
+      "recruits": 0,
+      "posts": 1,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 0,
+      "comments": 0,
+      "points": 130.0,
+      "prize": "Bronze"
+    },
+    {
       "name": "Christine Brennan-Savino",
       "department": "HUMAN RESOURCES",
       "team": "SAX",
@@ -109,7 +123,7 @@
       "shares": 0,
       "comments": 0,
       "points": 125.0,
-      "prize": "Bronze"
+      "prize": "Participation"
     },
     {
       "name": "Carolyn Dobbs",
@@ -151,20 +165,6 @@
       "shares": 0,
       "comments": 0,
       "points": 75.0,
-      "prize": "Participation"
-    },
-    {
-      "name": "Annalysse Wilson",
-      "department": "ACCOUNTING",
-      "team": "SAX",
-      "raised": 25.0,
-      "recruits": 0,
-      "posts": 0,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 0,
-      "comments": 0,
-      "points": 50.0,
       "prize": "Participation"
     },
     {
