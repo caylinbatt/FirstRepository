@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-08-24T20:24:04.281732+00:00",
+  "updatedAt": "2026-08-25T16:52:13.189845+00:00",
   "title": "INTERNAL COMPETITION",
   "subtitle": "Current Standings \u00b7 Fundraising & Participation Leaderboard",
-  "totalFundraiserRaised": 59565.0,
+  "totalFundraiserRaised": 60290.0,
   "disclaimer": "Total Participants and Total Funds Raised only count SAX employees in this competition below partner level.",
   "partnersDisclaimer": "Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.",
   "source": {
     "file": "Updated 4Miler Tracking.xlsx",
     "sharePointUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc={4462A57A-B085-4D46-B487-225D91621F37}&file=Updated%204Miler%20Tracking.xlsx",
     "itemId": "01RJ5ABS32UVREJBNQIZG3JBZCLWIWEHZX",
-    "lastModifiedDateTime": "2026-08-24T20:19:25Z",
+    "lastModifiedDateTime": "2026-08-25T16:49:38Z",
     "webUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc=%7B4462A57A-B085-4D46-B487-225D91621F37%7D&file=Updated%204Miler%20Tracking.xlsx&action=default&mobileredirect=true"
   },
   "people": [
@@ -17,15 +17,29 @@
       "name": "Margaret Henn",
       "department": "MARKETING",
       "team": "SAX",
-      "raised": 200.0,
+      "raised": 600.0,
       "recruits": 0,
       "posts": 0,
       "registered": 1,
       "volunteered": 0,
       "shares": 1,
       "comments": 2,
-      "points": 455.0,
+      "points": 1255.0,
       "prize": "Gold"
+    },
+    {
+      "name": "Talia Spendiff",
+      "department": "MARKETING",
+      "team": "SAX",
+      "raised": 250.0,
+      "recruits": 0,
+      "posts": 1,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 1,
+      "comments": 2,
+      "points": 585.0,
+      "prize": "Silver"
     },
     {
       "name": "Yogeandra Bhowandin",
@@ -42,6 +56,20 @@
       "prize": "Silver"
     },
     {
+      "name": "Caylin Batt",
+      "department": "MARKETING",
+      "team": "SAX",
+      "raised": 280.0,
+      "recruits": 0,
+      "posts": 2,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 1,
+      "comments": 2,
+      "points": 395.0,
+      "prize": "Bronze"
+    },
+    {
       "name": "Nicole Meraviglia",
       "department": "HUMAN RESOURCES",
       "team": "SAX - Learning & Development",
@@ -53,20 +81,6 @@
       "shares": 0,
       "comments": 0,
       "points": 395.0,
-      "prize": "Silver"
-    },
-    {
-      "name": "Caylin Batt",
-      "department": "MARKETING",
-      "team": "SAX",
-      "raised": 280.0,
-      "recruits": 0,
-      "posts": 1,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 1,
-      "comments": 2,
-      "points": 365.0,
       "prize": "Bronze"
     },
     {
@@ -84,31 +98,17 @@
       "prize": "Bronze"
     },
     {
-      "name": "Talia Spendiff",
-      "department": "MARKETING",
-      "team": "SAX",
-      "raised": 125.0,
-      "recruits": 0,
-      "posts": 0,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 1,
-      "comments": 2,
-      "points": 180.0,
-      "prize": "Bronze"
-    },
-    {
       "name": "Annalysse Wilson",
       "department": "ACCOUNTING",
       "team": "SAX",
-      "raised": 25.0,
+      "raised": 75.0,
       "recruits": 0,
       "posts": 1,
       "registered": 1,
       "volunteered": 0,
       "shares": 0,
       "comments": 0,
-      "points": 130.0,
+      "points": 205.0,
       "prize": "Bronze"
     },
     {
@@ -186,6 +186,20 @@
       "department": "TAX",
       "team": "SAX",
       "raised": 25.0,
+      "recruits": 0,
+      "posts": 0,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 0,
+      "comments": 0,
+      "points": 50.0,
+      "prize": "Participation"
+    },
+    {
+      "name": "Deborah Root",
+      "department": "FINANCE",
+      "team": "SAX",
+      "raised": 0.0,
       "recruits": 0,
       "posts": 0,
       "registered": 1,
