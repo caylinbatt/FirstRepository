@@ -169,11 +169,25 @@ def dense_rank(people: list[dict], key) -> list[dict]:
 
 
 def extract(path: Path) -> dict:
-    wb = load_workbook(path, data_only=True, read_only=True)
-    if "Leaderboard Tracker" not in wb.sheetnames:
+    # data_only=False first pass: detect hidden rows (openpyxl read_only cannot).
+    wb_struct = load_workbook(path, data_only=False)
+    if "Leaderboard Tracker" not in wb_struct.sheetnames:
         raise SystemExit(
-            f"Workbook missing 'Leaderboard Tracker' sheet. Found: {wb.sheetnames}"
+            f"Workbook missing 'Leaderboard Tracker' sheet. Found: {wb_struct.sheetnames}"
         )
+    ws_struct = wb_struct["Leaderboard Tracker"]
+    hidden_rows: set[int] = set()
+    for row_idx, dim in ws_struct.row_dimensions.items():
+        try:
+            r = int(row_idx)
+        except Exception:
+            continue
+        if bool(getattr(dim, "hidden", False)):
+            hidden_rows.add(r)
+    wb_struct.close()
+
+    # data_only=True for cached formula values (Total Points, etc.).
+    wb = load_workbook(path, data_only=True)
     ws = wb["Leaderboard Tracker"]
     rows = list(ws.iter_rows(values_only=True))
     wb.close()
@@ -207,7 +221,10 @@ def extract(path: Path) -> dict:
     idx_elig = col("Eligibility")
 
     people: list[dict] = []
-    for row in rows[1:]:
+    # Excel rows are 1-indexed; rows[0] is header row 1.
+    for excel_row, row in enumerate(rows[1:], start=2):
+        if excel_row in hidden_rows:
+            continue
         vals = list(row)
         if idx_name >= len(vals) or vals[idx_name] is None:
             continue
