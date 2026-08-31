@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-31T19:14:49.347748+00:00",
+  "updatedAt": "2026-08-31T19:18:34.338074+00:00",
   "title": "INTERNAL COMPETITION",
   "subtitle": "Current Standings \u00b7 Fundraising & Participation Leaderboard",
   "totalFundraiserRaised": 62475.0,
@@ -56,6 +56,20 @@
       "prize": "Silver"
     },
     {
+      "name": "Nicole Meraviglia",
+      "department": "HUMAN RESOURCES",
+      "team": "SAX - Learning & Development",
+      "raised": 430.0,
+      "recruits": 4,
+      "posts": 1,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 0,
+      "comments": 1,
+      "points": 605.0,
+      "prize": "Bronze"
+    },
+    {
       "name": "Yogeandra Bhowandin",
       "department": "ACCOUNTING",
       "team": "SAX LIFE by Yoge",
@@ -67,20 +81,6 @@
       "shares": 2,
       "comments": 1,
       "points": 540.0,
-      "prize": "Bronze"
-    },
-    {
-      "name": "Nicole Meraviglia",
-      "department": "HUMAN RESOURCES",
-      "team": "SAX - Learning & Development",
-      "raised": 280.0,
-      "recruits": 4,
-      "posts": 1,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 0,
-      "comments": 1,
-      "points": 455.0,
       "prize": "Bronze"
     },
     {
