@@ -52,6 +52,9 @@ WEIGHTS = {
     "comments": 10.0,
 }
 
+# Whole-event fundraising total (includes all sources, not only internal competition).
+DEFAULT_TOTAL_FUNDRAISER_RAISED = 65260.0
+
 
 def to_num(v) -> float:
     if v is None or v == "":
@@ -208,7 +211,19 @@ def extract(path: Path) -> dict:
     idx_name = col("Employee Name", "Name") or 0
     idx_dept = col("Department") or 1
     idx_team = col("Team Name", "Team") or 2
-    idx_raised = col("Total $ Raised", "Raised") or 3
+    # D = non-bonus $ raised; O = bonus-week $ (combined = person total raised).
+    idx_raised = col(
+        "$ Raised NON BONUS",
+        "Total $ Raised",
+        "$ Raised",
+        "Raised",
+    )
+    if idx_raised is None:
+        idx_raised = 3
+    idx_bonus_raised = col("BONUS WEEK $", "Bonus Week $", "BONUS WEEK")
+    if idx_bonus_raised is None:
+        # Column O in the current Marketing workbook layout.
+        idx_bonus_raised = 14 if len(header) > 14 else None
     idx_recruits = col("Teammates Recruited", "Recruited") or 4
     idx_posts = col("Unique Social Posts", "Social Posts") or 5
     idx_registered = col("Registered") or 6
@@ -235,7 +250,16 @@ def extract(path: Path) -> dict:
         elig = ""
         if idx_elig is not None and idx_elig < len(vals) and vals[idx_elig] is not None:
             elig = str(vals[idx_elig]).strip()
+
+        bonus_raw = None
+        if idx_bonus_raised is not None and idx_bonus_raised < len(vals):
+            bonus_raw = vals[idx_bonus_raised]
+
+        # Partners may be marked via Eligibility, or by putting "Partner" in the
+        # bonus-week $ column (current workbook convention).
         if elig.lower() == "partner":
+            continue
+        if isinstance(bonus_raw, str) and bonus_raw.strip().lower() == "partner":
             continue
 
         dept = (
@@ -248,7 +272,10 @@ def extract(path: Path) -> dict:
             if idx_team < len(vals) and vals[idx_team]
             else ""
         )
-        raised = to_num(vals[idx_raised] if idx_raised < len(vals) else 0)
+        base_raised = to_num(vals[idx_raised] if idx_raised < len(vals) else 0)
+        bonus_raised = to_num(bonus_raw)
+        # Person combined fundraising total = column D + column O.
+        raised = base_raised + bonus_raised
         recruits = to_num(vals[idx_recruits] if idx_recruits < len(vals) else 0)
         posts = to_num(vals[idx_posts] if idx_posts < len(vals) else 0)
         registered = to_num(vals[idx_registered] if idx_registered < len(vals) else 0)
@@ -325,7 +352,7 @@ def extract(path: Path) -> dict:
         "updatedAt": datetime.now(timezone.utc).isoformat(),
         "title": TITLE,
         "subtitle": SUBTITLE,
-        "totalFundraiserRaised": 61455.0,
+        "totalFundraiserRaised": DEFAULT_TOTAL_FUNDRAISER_RAISED,
         "disclaimer": DISCLAIMER,
         "partnersDisclaimer": PARTNERS_DISCLAIMER,
         "source": {
@@ -367,6 +394,15 @@ def main() -> int:
         action="store_true",
         help="Always write output even when people data is unchanged",
     )
+    parser.add_argument(
+        "--total-raised",
+        type=float,
+        default=None,
+        help=(
+            "Override whole-event totalFundraiserRaised. "
+            f"Default keeps prior value or {DEFAULT_TOTAL_FUNDRAISER_RAISED}."
+        ),
+    )
     args = parser.parse_args()
 
     meta = {}
@@ -384,13 +420,23 @@ def main() -> int:
                 raise SystemExit(f"SharePoint download failed ({exc.code}): {body}") from exc
             data = extract(xlsx_path)
             # Keep going outside temp dir with data already extracted.
-            return write_output(data, args.out, args.force, meta)
+            return write_output(
+                data, args.out, args.force, meta, total_raised=args.total_raised
+            )
 
     data = extract(xlsx_path)
-    return write_output(data, args.out, args.force, meta)
+    return write_output(
+        data, args.out, args.force, meta, total_raised=args.total_raised
+    )
 
 
-def write_output(data: dict, out: Path, force: bool, meta: dict) -> int:
+def write_output(
+    data: dict,
+    out: Path,
+    force: bool,
+    meta: dict,
+    total_raised: float | None = None,
+) -> int:
     if meta:
         data.setdefault("source", {})
         data["source"]["itemId"] = meta.get("id")
@@ -405,11 +451,14 @@ def write_output(data: dict, out: Path, force: bool, meta: dict) -> int:
         except Exception:
             previous = None
 
-    # Keep the manually maintained whole-fundraiser total across standings syncs.
-    if previous and previous.get("totalFundraiserRaised") is not None:
+    # Whole-event fundraising total: explicit override wins, else keep prior,
+    # else fall back to the current known event total.
+    if total_raised is not None:
+        data["totalFundraiserRaised"] = float(total_raised)
+    elif previous and previous.get("totalFundraiserRaised") is not None:
         data["totalFundraiserRaised"] = previous.get("totalFundraiserRaised")
     else:
-        data.setdefault("totalFundraiserRaised", 61455.0)
+        data.setdefault("totalFundraiserRaised", DEFAULT_TOTAL_FUNDRAISER_RAISED)
 
     if (
         not force
