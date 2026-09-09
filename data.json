@@ -1,13 +1,17 @@
 {
-  "updatedAt": "2026-09-08T14:02:16.284629+00:00",
+  "updatedAt": "2026-09-09T20:16:41.291876+00:00",
   "title": "INTERNAL COMPETITION",
   "subtitle": "Current Standings \u00b7 Fundraising & Participation Leaderboard",
-  "totalFundraiserRaised": 65260.0,
+  "totalFundraiserRaised": 66310.0,
   "disclaimer": "Total Participants and Total Funds Raised only count SAX employees in this competition below partner level.",
   "partnersDisclaimer": "Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.",
   "source": {
     "file": "Updated 4Miler Tracking.xlsx",
-    "sharePointUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc={4462A57A-B085-4D46-B487-225D91621F37}&file=Updated%204Miler%20Tracking.xlsx"
+    "sharePointUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc={4462A57A-B085-4D46-B487-225D91621F37}&file=Updated%204Miler%20Tracking.xlsx",
+    "method": "graph-workbook-api",
+    "itemId": "01RJ5ABS32UVREJBNQIZG3JBZCLWIWEHZX",
+    "lastModifiedDateTime": "2026-09-09T20:06:38Z",
+    "webUrl": "https://saxllp.sharepoint.com/sites/Marketing/_layouts/15/Doc.aspx?sourcedoc=%7B4462A57A-B085-4D46-B487-225D91621F37%7D&file=Updated%204Miler%20Tracking.xlsx&action=default&mobileredirect=true"
   },
   "people": [
     {
@@ -39,6 +43,20 @@
       "prize": "Silver"
     },
     {
+      "name": "Nicole Meraviglia",
+      "department": "HUMAN RESOURCES",
+      "team": "SAX - Learning & Development",
+      "raised": 480.0,
+      "recruits": 4,
+      "posts": 1,
+      "registered": 1,
+      "volunteered": 0,
+      "shares": 0,
+      "comments": 1,
+      "points": 655.0,
+      "prize": "Silver"
+    },
+    {
       "name": "Talia Spendiff",
       "department": "MARKETING",
       "team": "SAX",
@@ -50,20 +68,6 @@
       "shares": 1,
       "comments": 2,
       "points": 625.0,
-      "prize": "Silver"
-    },
-    {
-      "name": "Nicole Meraviglia",
-      "department": "HUMAN RESOURCES",
-      "team": "SAX - Learning & Development",
-      "raised": 430.0,
-      "recruits": 4,
-      "posts": 1,
-      "registered": 1,
-      "volunteered": 0,
-      "shares": 0,
-      "comments": 1,
-      "points": 605.0,
       "prize": "Bronze"
     },
     {
@@ -84,14 +88,14 @@
       "name": "Annalysse Wilson",
       "department": "ACCOUNTING",
       "team": "SAX",
-      "raised": 100.0,
+      "raised": 150.0,
       "recruits": 0,
       "posts": 1,
       "registered": 1,
       "volunteered": 0,
       "shares": 0,
       "comments": 0,
-      "points": 255.0,
+      "points": 305.0,
       "prize": "Bronze"
     },
     {

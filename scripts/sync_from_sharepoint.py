@@ -53,7 +53,13 @@ WEIGHTS = {
 }
 
 # Whole-event fundraising total (includes all sources, not only internal competition).
-DEFAULT_TOTAL_FUNDRAISER_RAISED = 65260.0
+DEFAULT_TOTAL_FUNDRAISER_RAISED = 66310.0
+
+# Known Marketing-site drive/item for Updated 4Miler Tracking.xlsx (used by workbook API).
+GRAPH_DRIVE_ID = (
+    "b!41qy9Vsk6E6KYl7WGxIbCRh75gJ3-BBNu5UJtJnOwl19EydDrIJvQ4plGzWOlPWQ"
+)
+GRAPH_ITEM_ID = "01RJ5ABS32UVREJBNQIZG3JBZCLWIWEHZX"
 
 
 def to_num(v) -> float:
@@ -103,29 +109,77 @@ def graph_get_json(url: str, token: str) -> dict:
         return json.load(resp)
 
 
-def download_sharepoint_xlsx(dest: Path, token: str | None = None) -> dict:
-    """Download workbook bytes and return driveItem metadata."""
+def resolve_drive_item(token: str | None = None) -> dict:
+    """Resolve driveItem metadata for the Marketing tracking workbook."""
     token = token or get_graph_token()
     share = "u!" + base64.urlsafe_b64encode(SHAREPOINT_DOC_URL.encode()).decode().rstrip("=")
-    meta = graph_get_json(
+    return graph_get_json(
         f"https://graph.microsoft.com/v1.0/shares/{share}/driveItem",
         token,
     )
-    content_url = f"https://graph.microsoft.com/v1.0/shares/{share}/driveItem/content"
-    req = urllib.request.Request(
-        content_url,
-        headers={"Authorization": f"Bearer {token}"},
+
+
+class _StripAuthOnCrossHostRedirect(urllib.request.HTTPRedirectHandler):
+    """Drop Authorization when Graph redirects content downloads to SharePoint."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        newreq = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if newreq is None:
+            return None
+        if "graph.microsoft.com" not in newurl:
+            for key in list(newreq.headers.keys()):
+                if key.lower() == "authorization":
+                    del newreq.headers[key]
+        return newreq
+
+
+def download_sharepoint_xlsx(dest: Path, token: str | None = None) -> dict:
+    """Download workbook bytes and return driveItem metadata.
+
+    Prefers @microsoft.graph.downloadUrl when it is a pre-auth URL. Falls back to
+    /content with Authorization stripped on SharePoint redirects.
+    """
+    token = token or get_graph_token()
+    meta = resolve_drive_item(token)
+    opener = urllib.request.build_opener(_StripAuthOnCrossHostRedirect)
+
+    download_url = meta.get("@microsoft.graph.downloadUrl") or ""
+    # Pre-auth download URLs include tempauth / query tokens. Plain download.aspx
+    # links without tokens often 401 for Azure CLI Graph tokens.
+    candidates: list[str] = []
+    if download_url and ("tempauth" in download_url.lower() or "access_token" in download_url.lower()):
+        candidates.append(download_url)
+
+    drive_id = (meta.get("parentReference") or {}).get("driveId") or GRAPH_DRIVE_ID
+    item_id = meta.get("id") or GRAPH_ITEM_ID
+    candidates.append(
+        f"https://graph.microsoft.com/v1.0/drives/{drive_id}/items/{item_id}/content"
     )
-    # Follow redirects manually if needed; urlopen follows by default.
-    with urllib.request.urlopen(req) as resp:
-        data = resp.read()
-    if len(data) < 1000 or data[:2] != b"PK":
-        raise SystemExit(
-            f"Downloaded file does not look like an xlsx (size={len(data)}). "
-            f"First bytes: {data[:80]!r}"
-        )
-    dest.write_bytes(data)
-    return meta
+    share = "u!" + base64.urlsafe_b64encode(SHAREPOINT_DOC_URL.encode()).decode().rstrip("=")
+    candidates.append(f"https://graph.microsoft.com/v1.0/shares/{share}/driveItem/content")
+
+    last_err = None
+    for content_url in candidates:
+        try:
+            headers = {}
+            if "graph.microsoft.com" in content_url:
+                headers["Authorization"] = f"Bearer {token}"
+            req = urllib.request.Request(content_url, headers=headers)
+            with opener.open(req) as resp:
+                data = resp.read()
+            if len(data) >= 1000 and data[:2] == b"PK":
+                dest.write_bytes(data)
+                return meta
+            last_err = f"unexpected payload size={len(data)} head={data[:40]!r}"
+        except urllib.error.HTTPError as exc:
+            last_err = f"HTTP {exc.code} for {content_url[:120]}"
+            continue
+
+    raise SystemExit(
+        "Could not download xlsx bytes from SharePoint/Graph. "
+        f"Last error: {last_err}. "
+        "Will need workbook API fallback or a local --xlsx."
+    )
 
 
 def compute_points(row: dict) -> float:
@@ -171,29 +225,29 @@ def dense_rank(people: list[dict], key) -> list[dict]:
     return ranked
 
 
-def extract(path: Path) -> dict:
-    # data_only=False first pass: detect hidden rows (openpyxl read_only cannot).
-    wb_struct = load_workbook(path, data_only=False)
-    if "Leaderboard Tracker" not in wb_struct.sheetnames:
-        raise SystemExit(
-            f"Workbook missing 'Leaderboard Tracker' sheet. Found: {wb_struct.sheetnames}"
-        )
-    ws_struct = wb_struct["Leaderboard Tracker"]
-    hidden_rows: set[int] = set()
-    for row_idx, dim in ws_struct.row_dimensions.items():
-        try:
-            r = int(row_idx)
-        except Exception:
-            continue
-        if bool(getattr(dim, "hidden", False)):
-            hidden_rows.add(r)
-    wb_struct.close()
+def fetch_leaderboard_rows_via_workbook_api(token: str | None = None) -> tuple[list, dict]:
+    """Read Leaderboard Tracker values via Microsoft Graph Excel API (no file download)."""
+    import urllib.parse
 
-    # data_only=True for cached formula values (Total Points, etc.).
-    wb = load_workbook(path, data_only=True)
-    ws = wb["Leaderboard Tracker"]
-    rows = list(ws.iter_rows(values_only=True))
-    wb.close()
+    token = token or get_graph_token()
+    meta = resolve_drive_item(token)
+    drive_id = (meta.get("parentReference") or {}).get("driveId") or GRAPH_DRIVE_ID
+    item_id = meta.get("id") or GRAPH_ITEM_ID
+    sheet = urllib.parse.quote("Leaderboard Tracker")
+    url = (
+        f"https://graph.microsoft.com/v1.0/drives/{drive_id}/items/{item_id}"
+        f"/workbook/worksheets('{sheet}')/usedRange(valuesOnly=true)"
+    )
+    payload = graph_get_json(url, token)
+    values = payload.get("values") or []
+    if not values:
+        raise SystemExit("Graph workbook API returned empty Leaderboard Tracker range")
+    return values, meta
+
+
+def extract_from_rows(rows: list, hidden_rows: set[int] | None = None) -> dict:
+    """Build leaderboard payload from Leaderboard Tracker matrix rows."""
+    hidden_rows = hidden_rows or set()
     if not rows:
         raise SystemExit("Leaderboard Tracker is empty")
 
@@ -363,6 +417,33 @@ def extract(path: Path) -> dict:
     }
 
 
+def extract(path: Path) -> dict:
+    """Extract leaderboard from a local xlsx path."""
+    # data_only=False first pass: detect hidden rows (openpyxl read_only cannot).
+    wb_struct = load_workbook(path, data_only=False)
+    if "Leaderboard Tracker" not in wb_struct.sheetnames:
+        raise SystemExit(
+            f"Workbook missing 'Leaderboard Tracker' sheet. Found: {wb_struct.sheetnames}"
+        )
+    ws_struct = wb_struct["Leaderboard Tracker"]
+    hidden_rows: set[int] = set()
+    for row_idx, dim in ws_struct.row_dimensions.items():
+        try:
+            r = int(row_idx)
+        except Exception:
+            continue
+        if bool(getattr(dim, "hidden", False)):
+            hidden_rows.add(r)
+    wb_struct.close()
+
+    # data_only=True for cached formula values (Total Points, etc.).
+    wb = load_workbook(path, data_only=True)
+    ws = wb["Leaderboard Tracker"]
+    rows = list(ws.iter_rows(values_only=True))
+    wb.close()
+    return extract_from_rows(rows, hidden_rows=hidden_rows)
+
+
 def people_signature(data: dict) -> str:
     """Stable comparison payload ignoring updatedAt."""
     clone = {
@@ -410,24 +491,41 @@ def main() -> int:
         xlsx_path = args.xlsx
         if not xlsx_path.exists():
             raise SystemExit(f"Workbook not found: {xlsx_path}")
-    else:
-        with tempfile.TemporaryDirectory(prefix="4miler-sync-") as tmp:
-            xlsx_path = Path(tmp) / "Updated 4Miler Tracking.xlsx"
-            try:
-                meta = download_sharepoint_xlsx(xlsx_path)
-            except urllib.error.HTTPError as exc:
-                body = exc.read().decode("utf-8", errors="replace")
-                raise SystemExit(f"SharePoint download failed ({exc.code}): {body}") from exc
+        data = extract(xlsx_path)
+        return write_output(
+            data, args.out, args.force, meta, total_raised=args.total_raised
+        )
+
+    # Prefer binary xlsx download (preserves hidden-row detection). Fall back to
+    # Graph Excel workbook API when content download is unauthorized.
+    with tempfile.TemporaryDirectory(prefix="4miler-sync-") as tmp:
+        xlsx_path = Path(tmp) / "Updated 4Miler Tracking.xlsx"
+        try:
+            meta = download_sharepoint_xlsx(xlsx_path)
             data = extract(xlsx_path)
-            # Keep going outside temp dir with data already extracted.
             return write_output(
                 data, args.out, args.force, meta, total_raised=args.total_raised
             )
+        except SystemExit as download_exc:
+            print(f"xlsx download unavailable ({download_exc}); trying Graph workbook API…")
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode("utf-8", errors="replace")
+            print(
+                f"xlsx download HTTP {exc.code}; trying Graph workbook API… ({body[:120]})"
+            )
 
-    data = extract(xlsx_path)
-    return write_output(
-        data, args.out, args.force, meta, total_raised=args.total_raised
-    )
+    try:
+        rows, meta = fetch_leaderboard_rows_via_workbook_api()
+        data = extract_from_rows(rows)
+        data.setdefault("source", {})["method"] = "graph-workbook-api"
+        return write_output(
+            data, args.out, args.force, meta, total_raised=args.total_raised
+        )
+    except urllib.error.HTTPError as exc:
+        body = exc.read().decode("utf-8", errors="replace")
+        raise SystemExit(
+            f"SharePoint/Graph sync failed ({exc.code}): {body}"
+        ) from exc
 
 
 def write_output(
