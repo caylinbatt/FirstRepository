@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>4MILER Current Standings — September 15, 2026 (Hi-Res)</title>
+  <style>
+
+
+    @font-face {
+      font-family: "ImpactLocal";
+      src: local("Impact"), url("file:///System/Library/Fonts/Supplemental/Impact.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "ArialBlackLocal";
+      src: local("Arial Black"), url("file:///System/Library/Fonts/Supplemental/Arial%20Black.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "ArialNarrowBoldLocal";
+      src: local("Arial Narrow Bold"), url("file:///System/Library/Fonts/Supplemental/Arial%20Narrow%20Bold.ttf") format("truetype");
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 3200px; height: 4400px; overflow: hidden; background: #0b1b3a;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; color: #fff;
+    }
+    .poster {
+      position: relative; width: 3200px; height: 4400px; overflow: hidden;
+      background: 
+        radial-gradient(ellipse 90% 55% at 18% 8%, rgba(40, 190, 210, 0.45) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 50% at 88% 12%, rgba(70, 100, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse 95% 70% at 70% 48%, rgba(210, 40, 150, 0.55) 0%, transparent 58%),
+        radial-gradient(ellipse 80% 55% at 18% 78%, rgba(20, 140, 130, 0.4) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 50% at 90% 92%, rgba(255, 140, 40, 0.55) 0%, transparent 50%),
+        linear-gradient(165deg, #0f4f6e 0%, #1a3a9a 22%, #5a28b8 48%, #c02488 72%, #d84a28 100%);
+
+      padding: 88px 120px 72px; display: flex; flex-direction: column; align-items: center;
+    }
+    .poster::before {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(8, 20, 50, 0.12) 0%, rgba(8, 20, 50, 0.04) 35%, rgba(20, 10, 30, 0.18) 100%);
+      pointer-events: none;
+    }
+    .content { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
+    .banner-wrap { width: 2080px; height: 570px; border-radius: 44px; overflow: hidden; box-shadow: 0 28px 60px rgba(0,0,0,0.30); flex-shrink: 0; }
+    .banner { width: 2080px; height: 570px; object-fit: cover; object-position: center; display: block; }
+    .title {
+      margin-top: 48px; text-align: center; font-family: "ImpactLocal", Impact, "ArialBlackLocal", sans-serif;
+      font-size: 148px; line-height: 0.95; letter-spacing: 0.01em; text-transform: uppercase;
+      text-shadow: 0 8px 0 rgba(0,0,0,0.1), 0 20px 40px rgba(0,0,0,0.22);
+    }
+    .asof {
+      margin-top: 36px; display: inline-flex; align-items: center; justify-content: center;
+      background: #1ec9a8; color: #063a42; font-family: "ArialNarrowBoldLocal", "Arial Narrow", Helvetica, sans-serif;
+      font-size: 42px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 22px 52px; border-radius: 999px; box-shadow: 0 14px 32px rgba(0,0,0,0.18);
+    }
+    .kpis { margin-top: 48px; width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+    .kpi {
+      background: rgba(255,255,255,0.10); border: 2px solid rgba(255,255,255,0.16); border-radius: 40px;
+      padding: 36px 32px 30px; box-shadow: 0 16px 36px rgba(0,0,0,0.12); min-height: 260px;
+    }
+    .kpi-label { font-family: "ArialNarrowBoldLocal", "Arial Narrow", sans-serif; font-size: 28px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.78); margin-bottom: 14px; }
+    .kpi-value { font-family: "ImpactLocal", Impact, "ArialBlackLocal", sans-serif; font-size: 100px; line-height: 1; }
+    .kpi-value.cyan { color: #3de7ff; } .kpi-value.gold { color: #ffd24a; } .kpi-value.white { color: #fff; } .kpi-value.mint { color: #3dffd2; }
+    .kpi-note { margin-top: 16px; font-size: 26px; line-height: 1.25; color: rgba(255,255,255,0.72); font-weight: 500; }
+    .section-head { width: 100%; margin-top: 44px; margin-bottom: 22px; display: flex; align-items: center; gap: 24px; }
+    .pill { display: inline-flex; align-items: center; font-family: "ImpactLocal", Impact, "ArialBlackLocal", sans-serif; font-size: 44px; letter-spacing: 0.04em; text-transform: uppercase; padding: 18px 34px; border-radius: 20px; color: #0b1b3a; }
+    .pill.cyan { background: #2fd8ff; } .pill.pink { background: #ff4fa8; color: #fff; } .pill.yellow { background: #ffe14a; }
+    .section-sub { font-family: "ArialNarrowBoldLocal", "Arial Narrow", sans-serif; font-size: 38px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.9); }
+    .panel { width: 100%; background: rgba(255,255,255,0.10); border: 2px solid rgba(255,255,255,0.14); border-radius: 48px; padding: 44px 36px 34px; box-shadow: 0 22px 48px rgba(0,0,0,0.12); }
+    .bars-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; align-items: end; min-height: 760px; }
+    .bars-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; align-items: end; min-height: 560px; }
+    .bar-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; min-width: 0; }
+    .bar-value { font-family: "ImpactLocal", Impact, "ArialBlackLocal", sans-serif; font-size: 64px; margin-bottom: 16px; text-shadow: 0 5px 16px rgba(0,0,0,0.18); }
+    .bars-3 .bar-value { font-size: 80px; }
+    .bar { position: relative; width: 180px; border-radius: 44px 44px 28px 28px; display: flex; align-items: flex-start; justify-content: center; padding-top: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.18); }
+    .bars-3 .bar { width: 220px; border-radius: 48px 48px 30px 30px; padding-top: 32px; }
+    .rank { width: 78px; height: 78px; border-radius: 50%; background: #111; color: #fff; display: flex; align-items: center; justify-content: center; font-family: "ImpactLocal", Impact, sans-serif; font-size: 38px; box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+    .bars-3 .rank { width: 90px; height: 90px; font-size: 44px; }
+    .baseline { width: 78%; height: 5px; background: rgba(255,255,255,0.55); margin: 28px auto 20px; border-radius: 3px; }
+    .person-name { font-family: "ImpactLocal", Impact, "ArialBlackLocal", sans-serif; font-size: 40px; line-height: 1.05; letter-spacing: 0.01em; }
+    .person-dept { margin-top: 10px; font-family: "ArialNarrowBoldLocal", "Arial Narrow", sans-serif; font-size: 24px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.78); }
+    .prize { margin-top: 14px; display: inline-flex; align-items: center; justify-content: center; min-width: 140px; padding: 10px 22px; border-radius: 999px; font-family: "ImpactLocal", Impact, sans-serif; font-size: 26px; letter-spacing: 0.08em; text-transform: uppercase; color: #1a1450; }
+    .prize.gold { background: #ffd24a; } .prize.silver { background: #d7dce6; color: #2a3344; } .prize.bronze { background: #e08a3a; color: #fff; }
+    .dept-name { font-family: "ImpactLocal", Impact, "ArialBlackLocal", sans-serif; font-size: 56px; letter-spacing: 0.02em; text-transform: uppercase; }
+    .dept-meta { margin-top: 12px; font-family: "ArialNarrowBoldLocal", "Arial Narrow", sans-serif; font-size: 30px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.78); }
+    .disclaimers { width: 100%; margin-top: 42px; }
+    .disc-box { margin-top: 20px; width: 100%; background: rgba(10, 14, 28, 0.72); border-radius: 40px; padding: 36px 48px; box-shadow: 0 16px 36px rgba(0,0,0,0.18); }
+    .disc-box ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .disc-box li { position: relative; padding-left: 40px; font-size: 34px; line-height: 1.35; color: rgba(255,255,255,0.92); font-weight: 500; }
+    .disc-box li::before { content: "•"; position: absolute; left: 0; top: 0; color: #ffd24a; font-size: 40px; }
+    .footer { margin-top: auto; padding-top: 36px; text-align: center; width: 100%; }
+    .footer-main { font-family: "ArialNarrowBoldLocal", "Arial Narrow", sans-serif; font-size: 34px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.92); }
+    .footer-sub { margin-top: 12px; font-family: "ArialNarrowBoldLocal", "Arial Narrow", sans-serif; font-size: 30px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.78); }
+
+    .c-gold { background: linear-gradient(180deg, #ffe56a 0%, #ffd000 55%, #f0b400 100%); }
+    .c-silver { background: linear-gradient(180deg, #f7f9fc 0%, #d5dde8 45%, #a7b4c4 100%); }
+    .c-bronze { background: linear-gradient(180deg, #e8b07a 0%, #c8783a 50%, #a85a22 100%); }
+    .c-teal { background: linear-gradient(180deg, #5dffd8 0%, #22e0c0 55%, #12c4a8 100%); }
+    .c-purple { background: linear-gradient(180deg, #c59bff 0%, #9b5cff 55%, #7a3de0 100%); }
+    .c-pink { background: linear-gradient(180deg, #ff9ad0 0%, #ff5aaa 55%, #e03088 100%); }
+
+  
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="content">
+      <div class="banner-wrap"><img class="banner" src="assets/sax-4miler-brand-banner-2000.png" alt="SAX 4 Miler" /></div>
+      <div class="title">Internal Competition<br />Current Standings</div>
+      <div class="asof">Live Standings as of Monday, September 15, 2026</div>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-label">Total Raised</div><div class="kpi-value cyan">$2,830</div><div class="kpi-note">SAX employees below partner level only</div></div>
+        <div class="kpi"><div class="kpi-label">Participants</div><div class="kpi-value gold">22</div><div class="kpi-note">SAX employees below partner level only</div></div>
+        <div class="kpi"><div class="kpi-label">Departments</div><div class="kpi-value white">5</div></div>
+        <div class="kpi"><div class="kpi-label">Total 4Miler Fundraising</div><div class="kpi-value mint">$67,505.00</div><div class="kpi-note">Entire fundraiser total</div></div>
+      </div>
+      <div class="section-head"><div class="pill cyan">Top Points</div><div class="section-sub">1st – 5th place</div></div>
+      <div class="panel"><div class="bars-5">
+          <div class="bar-col">
+            <div class="bar-value">1,875</div>
+            <div class="bar c-gold" style="height: 560px;"><div class="rank">1</div></div>
+            <div class="baseline"></div>
+            <div class="person-name">Margaret Henn</div>
+            <div class="person-dept">Marketing</div>
+            <div class="prize gold">GOLD</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-value">795</div>
+            <div class="bar c-silver" style="height: 238px;"><div class="rank">2</div></div>
+            <div class="baseline"></div>
+            <div class="person-name">Caylin Batt</div>
+            <div class="person-dept">Marketing</div>
+            <div class="prize silver">SILVER</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-value">705</div>
+            <div class="bar c-silver" style="height: 211px;"><div class="rank">3</div></div>
+            <div class="baseline"></div>
+            <div class="person-name">Nicole Meraviglia</div>
+            <div class="person-dept">Human Resources</div>
+            <div class="prize silver">SILVER</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-value">625</div>
+            <div class="bar c-bronze" style="height: 187px;"><div class="rank">4</div></div>
+            <div class="baseline"></div>
+            <div class="person-name">Talia Spendiff</div>
+            <div class="person-dept">Marketing</div>
+            <div class="prize bronze">BRONZE</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-value">590</div>
+            <div class="bar c-bronze" style="height: 176px;"><div class="rank">5</div></div>
+            <div class="baseline"></div>
+            <div class="person-name">Yogeandra Bhowandin</div>
+            <div class="person-dept">Accounting</div>
+            <div class="prize bronze">BRONZE</div>
+          </div></div></div>
+      <div class="section-head"><div class="pill pink">Top Departments</div><div class="section-sub">By $ Raised · 1st – 3rd place</div></div>
+      <div class="panel"><div class="bars-3">
+          <div class="bar-col">
+            <div class="bar-value">$1,510</div>
+            <div class="bar c-teal" style="height: 420px;"><div class="rank">1</div></div>
+            <div class="baseline"></div>
+            <div class="dept-name">Marketing</div>
+            <div class="dept-meta">5 Participants</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-value">$625</div>
+            <div class="bar c-purple" style="height: 174px;"><div class="rank">2</div></div>
+            <div class="baseline"></div>
+            <div class="dept-name">Accounting</div>
+            <div class="dept-meta">8 Participants</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-value">$600</div>
+            <div class="bar c-pink" style="height: 167px;"><div class="rank">3</div></div>
+            <div class="baseline"></div>
+            <div class="dept-name">Human Resources</div>
+            <div class="dept-meta">3 Participants</div>
+          </div></div></div>
+      <div class="disclaimers">
+        <div class="section-head" style="margin-top: 0; margin-bottom: 0;"><div class="pill yellow">Disclaimers</div></div>
+        <div class="disc-box"><ul>
+          <li>Total Participants and Total Funds Raised only count SAX employees below partner level in this internal competition.</li>
+          <li>Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.</li>
+        </ul></div>
+      </div>
+      <div class="footer">
+        <div class="footer-main">Live Leaderboard · leaderboard.saxadvisorygroup.com</div>
+        <div class="footer-sub">Source: Updated 4Miler Tracking · Internal Use Only</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

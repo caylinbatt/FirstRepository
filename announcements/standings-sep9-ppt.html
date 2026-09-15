@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>4MILER Current Standings — September 15, 2026 (PPT)</title>
+<style>
+
+@font-face { font-family:"ImpactLocal"; src:local("Impact"), url("file:///System/Library/Fonts/Supplemental/Impact.ttf") format("truetype"); }
+@font-face { font-family:"ArialBlackLocal"; src:local("Arial Black"), url("file:///System/Library/Fonts/Supplemental/Arial%20Black.ttf") format("truetype"); }
+@font-face { font-family:"ArialNarrowBoldLocal"; src:local("Arial Narrow Bold"), url("file:///System/Library/Fonts/Supplemental/Arial%20Narrow%20Bold.ttf") format("truetype"); }
+* { box-sizing:border-box; margin:0; padding:0; }
+html, body {
+  width:1920px; height:1080px; overflow:hidden; background:#0b1b3a; color:#fff;
+  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:geometricPrecision;
+}
+.poster {
+  width:1920px; height:1080px; position:relative; overflow:hidden;
+  padding:16px 24px 12px; display:flex; flex-direction:column;
+  background:
+    radial-gradient(ellipse 90% 55% at 14% 10%, rgba(40,190,210,.42) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 88% 14%, rgba(70,100,255,.38) 0%, transparent 50%),
+    radial-gradient(ellipse 95% 70% at 68% 52%, rgba(210,40,150,.5) 0%, transparent 58%),
+    radial-gradient(ellipse 80% 55% at 20% 82%, rgba(20,140,130,.38) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 92% 90%, rgba(255,140,40,.52) 0%, transparent 50%),
+    linear-gradient(165deg, #0f4f6e 0%, #1a3a9a 22%, #5a28b8 48%, #c02488 72%, #d84a28 100%);
+}
+.poster::before {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(8,20,50,.1) 0%, rgba(8,20,50,.04) 40%, rgba(20,10,30,.14) 100%);
+}
+.content { position:relative; z-index:2; width:100%; height:100%; display:flex; flex-direction:column; gap:10px; }
+
+/* Header */
+.header { display:grid; grid-template-columns:500px 1fr 250px; gap:16px; align-items:center; flex:0 0 auto; }
+.banner-wrap {
+  width:500px; height:92px; border-radius:16px; overflow:hidden;
+  box-shadow:0 10px 24px rgba(0,0,0,.28); background:rgba(0,0,0,.12);
+}
+.banner { width:100%; height:100%; object-fit:cover; object-position:center center; display:block; }
+.title {
+  font-family:"ImpactLocal", Impact, "ArialBlackLocal", sans-serif;
+  font-size:46px; line-height:.94; text-transform:uppercase;
+  text-shadow:0 4px 0 rgba(0,0,0,.1), 0 10px 24px rgba(0,0,0,.2);
+}
+.asof {
+  margin-top:8px; display:inline-flex; align-items:center; background:#1ec9a8; color:#063a42;
+  font-family:"ArialNarrowBoldLocal","Arial Narrow",Helvetica,sans-serif;
+  font-size:15px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  padding:8px 14px; border-radius:999px; box-shadow:0 8px 18px rgba(0,0,0,.16);
+}
+.qr-box {
+  display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.22); border-radius:14px; padding:8px 12px 8px 8px;
+  box-shadow:0 10px 24px rgba(0,0,0,.16);
+}
+.qr-frame { width:88px; height:88px; background:#fff; border-radius:10px; padding:4px; flex-shrink:0; }
+.qr-frame img { width:100%; height:100%; object-fit:contain; display:block; }
+.qr-text {
+  font-family:"ImpactLocal", Impact, "ArialBlackLocal", sans-serif;
+  font-size:18px; line-height:1.05; letter-spacing:.04em; text-transform:uppercase;
+}
+
+/* KPIs */
+.kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; flex:0 0 auto; }
+.kpi {
+  background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.16);
+  border-radius:14px; padding:10px 14px 8px; box-shadow:0 8px 18px rgba(0,0,0,.12); min-height:78px;
+}
+.kpi-label {
+  font-family:"ArialNarrowBoldLocal","Arial Narrow",sans-serif;
+  font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.78); margin-bottom:3px;
+}
+.kpi-value { font-family:"ImpactLocal", Impact, "ArialBlackLocal", sans-serif; font-size:34px; line-height:1; }
+.kpi-value.cyan { color:#3de7ff; } .kpi-value.gold { color:#ffd24a; }
+.kpi-value.white { color:#fff; } .kpi-value.mint { color:#3dffd2; }
+.kpi-note { margin-top:4px; font-size:11px; color:rgba(255,255,255,.7); font-weight:500; }
+
+/* Main split: individuals dominate */
+.main { flex:1 1 auto; min-height:0; display:grid; grid-template-columns:1.7fr .95fr; gap:12px; }
+.section { display:flex; flex-direction:column; min-height:0; }
+.section-head { display:flex; align-items:center; gap:10px; margin-bottom:6px; flex:0 0 auto; }
+.pill {
+  display:inline-flex; align-items:center; font-family:"ImpactLocal", Impact, "ArialBlackLocal", sans-serif;
+  font-size:17px; letter-spacing:.04em; text-transform:uppercase; padding:6px 12px; border-radius:9px; color:#0b1b3a;
+}
+.pill.cyan { background:#2fd8ff; } .pill.pink { background:#ff4fa8; color:#fff; } .pill.yellow { background:#ffe14a; }
+.section-sub {
+  font-family:"ArialNarrowBoldLocal","Arial Narrow",sans-serif;
+  font-size:15px; letter-spacing:.04em; text-transform:uppercase; color:rgba(255,255,255,.9);
+}
+.panel {
+  flex:1 1 auto; min-height:0; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.14);
+  border-radius:18px; padding:12px 12px 10px; box-shadow:0 10px 24px rgba(0,0,0,.12);
+  display:flex; flex-direction:column;
+}
+
+/* Top 5 bars */
+.bars {
+  flex:1 1 auto; min-height:0; display:grid; grid-template-columns:repeat(5,1fr); gap:10px;
+  align-items:end; padding:2px 4px 0;
+}
+.bar-col {
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+  text-align:center; min-width:0; height:100%;
+}
+.bar-value {
+  font-family:"ImpactLocal", Impact, "ArialBlackLocal", sans-serif;
+  font-size:30px; margin-bottom:6px; text-shadow:0 3px 10px rgba(0,0,0,.18);
+}
+.bar {
+  width:108px; border-radius:26px 26px 16px 16px; display:flex; align-items:flex-start; justify-content:center;
+  padding-top:14px; box-shadow:0 12px 22px rgba(0,0,0,.22);
+}
+.rank {
+  width:36px; height:36px; border-radius:50%; background:#111; color:#fff; display:flex; align-items:center;
+  justify-content:center; font-family:"ImpactLocal", Impact, sans-serif; font-size:18px;
+  box-shadow:0 4px 10px rgba(0,0,0,.25); flex-shrink:0;
+}
+.baseline { width:78%; height:3px; background:rgba(255,255,255,.55); margin:10px auto 8px; border-radius:2px; }
+.person-name { font-family:"ImpactLocal", Impact, "ArialBlackLocal", sans-serif; font-size:18px; line-height:1.05; }
+.person-dept {
+  margin-top:3px; font-family:"ArialNarrowBoldLocal","Arial Narrow",sans-serif;
+  font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.78);
+}
+.prize {
+  margin-top:6px; display:inline-flex; align-items:center; justify-content:center; min-width:68px;
+  padding:4px 10px; border-radius:999px; font-family:"ImpactLocal", Impact, sans-serif;
+  font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#1a1450;
+}
+.prize.gold { background:#ffd24a; } .prize.silver { background:#d7dce6; color:#2a3344; } .prize.bronze { background:#e08a3a; color:#fff; }
+
+/* Horizontal departments */
+.hlist { flex:1 1 auto; min-height:0; display:flex; flex-direction:column; justify-content:space-evenly; gap:10px; padding:4px 2px; }
+.hrow { display:grid; grid-template-columns:40px 1fr; gap:10px; align-items:center; }
+.htop { display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin-bottom:5px; }
+.hname { font-family:"ImpactLocal", Impact, "ArialBlackLocal", sans-serif; font-size:22px; letter-spacing:.02em; text-transform:uppercase; }
+.hval { font-family:"ImpactLocal", Impact, "ArialBlackLocal", sans-serif; font-size:26px; white-space:nowrap; }
+.track {
+  width:100%; height:40px; border-radius:12px; background:rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.12); overflow:hidden; box-shadow:inset 0 2px 8px rgba(0,0,0,.18);
+}
+.fill { height:100%; border-radius:12px; min-width:40px; box-shadow:0 4px 14px rgba(0,0,0,.18); }
+.hmeta {
+  margin-top:5px; font-family:"ArialNarrowBoldLocal","Arial Narrow",sans-serif;
+  font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.75);
+}
+
+/* Footer */
+.footer { display:grid; grid-template-columns:1.4fr .9fr; gap:12px; align-items:end; flex:0 0 auto; }
+.disc-box { background:rgba(10,14,28,.72); border-radius:12px; padding:10px 14px; box-shadow:0 8px 18px rgba(0,0,0,.16); margin-top:4px; }
+.disc-box ul { list-style:none; display:flex; flex-direction:column; gap:4px; }
+.disc-box li { position:relative; padding-left:14px; font-size:12px; line-height:1.3; color:rgba(255,255,255,.92); font-weight:500; }
+.disc-box li::before { content:"•"; position:absolute; left:0; top:0; color:#ffd24a; }
+.footer-right { text-align:right; padding-bottom:2px; }
+.footer-main { font-family:"ArialNarrowBoldLocal","Arial Narrow",sans-serif; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.92); }
+.footer-sub { margin-top:3px; font-family:"ArialNarrowBoldLocal","Arial Narrow",sans-serif; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.78); }
+
+.c-gold { background:linear-gradient(180deg,#ffe56a 0%,#ffd000 55%,#f0b400 100%); }
+.c-silver { background:linear-gradient(180deg,#f7f9fc 0%,#d5dde8 45%,#a7b4c4 100%); }
+.c-bronze { background:linear-gradient(180deg,#e8b07a 0%,#c8783a 50%,#a85a22 100%); }
+.c-teal-h { background:linear-gradient(90deg,#12c4a8 0%,#22e0c0 45%,#5dffd8 100%); }
+.c-purple-h { background:linear-gradient(90deg,#7a3de0 0%,#9b5cff 45%,#c59bff 100%); }
+.c-pink-h { background:linear-gradient(90deg,#e03088 0%,#ff5aaa 45%,#ff9ad0 100%); }
+
+</style>
+</head>
+<body>
+<div class="poster"><div class="content">
+  <div class="header">
+    <div class="banner-wrap"><img class="banner" src="assets/sax-4miler-standings-banner.png" alt="SAX 4 Miler" /></div>
+    <div>
+      <div class="title">Internal Competition<br />Current Standings</div>
+      <div class="asof">Live Standings as of Monday, September 15, 2026</div>
+    </div>
+    <div class="qr-box">
+      <div class="qr-frame"><img src="assets/qr-register-code-only.png" alt="QR" /></div>
+      <div class="qr-text">Scan to<br />Register<br />for the<br />4Miler</div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-label">Total Raised</div><div class="kpi-value cyan">$2,830</div><div class="kpi-note">SAX employees below partner level only</div></div>
+    <div class="kpi"><div class="kpi-label">Participants</div><div class="kpi-value gold">22</div><div class="kpi-note">SAX employees below partner level only</div></div>
+    <div class="kpi"><div class="kpi-label">Departments</div><div class="kpi-value white">5</div></div>
+    <div class="kpi"><div class="kpi-label">Total 4Miler Fundraising</div><div class="kpi-value mint">$67,505.00</div><div class="kpi-note">Entire fundraiser total</div></div>
+  </div>
+
+  <div class="main">
+    <div class="section">
+      <div class="section-head"><div class="pill cyan">Top Points</div><div class="section-sub">1st – 5th place</div></div>
+      <div class="panel"><div class="bars">
+              <div class="bar-col">
+                <div class="bar-value">1,875</div>
+                <div class="bar c-gold" style="height:430px"><div class="rank">1</div></div>
+                <div class="baseline"></div>
+                <div class="person-name">Margaret Henn</div>
+                <div class="person-dept">Marketing</div>
+                <div class="prize gold">GOLD</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value">795</div>
+                <div class="bar c-silver" style="height:182px"><div class="rank">2</div></div>
+                <div class="baseline"></div>
+                <div class="person-name">Caylin Batt</div>
+                <div class="person-dept">Marketing</div>
+                <div class="prize silver">SILVER</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value">705</div>
+                <div class="bar c-silver" style="height:162px"><div class="rank">3</div></div>
+                <div class="baseline"></div>
+                <div class="person-name">Nicole Meraviglia</div>
+                <div class="person-dept">Human Resources</div>
+                <div class="prize silver">SILVER</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value">625</div>
+                <div class="bar c-bronze" style="height:143px"><div class="rank">4</div></div>
+                <div class="baseline"></div>
+                <div class="person-name">Talia Spendiff</div>
+                <div class="person-dept">Marketing</div>
+                <div class="prize bronze">BRONZE</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar-value">590</div>
+                <div class="bar c-bronze" style="height:135px"><div class="rank">5</div></div>
+                <div class="baseline"></div>
+                <div class="person-name">Yogeandra Bhowandin</div>
+                <div class="person-dept">Accounting</div>
+                <div class="prize bronze">BRONZE</div>
+              </div></div></div>
+    </div>
+    <div class="section">
+      <div class="section-head"><div class="pill pink">Top Departments</div><div class="section-sub">By $ Raised · 1st – 3rd</div></div>
+      <div class="panel"><div class="hlist">
+            <div class="hrow">
+              <div class="rank">1</div>
+              <div class="hmain">
+                <div class="htop"><div class="hname">Marketing</div><div class="hval">$1,510</div></div>
+                <div class="track"><div class="fill c-teal-h" style="width:100%"></div></div>
+                <div class="hmeta">5 Participants</div>
+              </div>
+            </div>
+            <div class="hrow">
+              <div class="rank">2</div>
+              <div class="hmain">
+                <div class="htop"><div class="hname">Accounting</div><div class="hval">$625</div></div>
+                <div class="track"><div class="fill c-purple-h" style="width:41%"></div></div>
+                <div class="hmeta">8 Participants</div>
+              </div>
+            </div>
+            <div class="hrow">
+              <div class="rank">3</div>
+              <div class="hmain">
+                <div class="htop"><div class="hname">Human Resources</div><div class="hval">$600</div></div>
+                <div class="track"><div class="fill c-pink-h" style="width:40%"></div></div>
+                <div class="hmeta">3 Participants</div>
+              </div>
+            </div></div></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>
+      <div class="section-head" style="margin-bottom:0"><div class="pill yellow">Disclaimers</div></div>
+      <div class="disc-box"><ul>
+        <li>Total Participants and Total Funds Raised only count SAX employees below partner level in this internal competition.</li>
+        <li>Partners are ineligible to win any prizes and are therefore not reflected in the leaderboard.</li>
+      </ul></div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-main">Live Leaderboard · leaderboard.saxadvisorygroup.com</div>
+      <div class="footer-sub">Source: Updated 4Miler Tracking · Internal Use Only</div>
+    </div>
+  </div>
+</div></div>
+</body>
+</html>
