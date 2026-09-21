@@ -53,7 +53,7 @@ WEIGHTS = {
 }
 
 # Whole-event fundraising total (includes all sources, not only internal competition).
-DEFAULT_TOTAL_FUNDRAISER_RAISED = 66380.0
+DEFAULT_TOTAL_FUNDRAISER_RAISED = 86680.0
 
 # Known Marketing-site drive/item for Updated 4Miler Tracking.xlsx (used by workbook API).
 GRAPH_DRIVE_ID = (
